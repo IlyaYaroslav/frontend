@@ -57,3 +57,18 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## CI / CD
+
+This repository includes two example GitHub Actions workflows:
+
+- `.github/workflows/ci.yml`: runs on push and pull requests to `main`, `master`, and `develop`. It installs dependencies, builds the app, runs tests (if present), and uploads the `dist/` artifact.
+- `.github/workflows/docker-publish.yml`: builds the `Dockerfile` at the repository root and pushes an image to Docker Hub when changes are pushed to `main`.
+
+Required secrets for Docker publishing (set these in your GitHub repository settings -> Secrets):
+
+- `DOCKERHUB_USERNAME` — Docker Hub username.
+- `DOCKERHUB_TOKEN` — Docker Hub access token or password.
+
+If you prefer using GitHub Container Registry (GHCR) instead of Docker Hub, I can add a variant that uses `GITHUB_TOKEN`.
+
