@@ -1,0 +1,23 @@
+@use "./media" as *;
+
+:root {
+  --container: 10px;
+  --container-width: 1400px;
+  --max-width: calc(var(--container-width) + (var(--container) * 2));
+
+  @include breakpoint(md) {
+    --container: 20px;
+  }
+}
+
+$container: var(--container);
+$max-width: var(--max-width);
+
+.container {
+  margin: 0 auto;
+  padding: 0 $container;
+  position: relative;
+  width: 100%;
+  max-width: $max-width;
+  box-sizing: border-box;
+}

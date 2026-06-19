@@ -1,0 +1,50 @@
+@mixin textLimit($val) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $val;
+  line-clamp: $val;
+  -webkit-box-orient: vertical;
+}
+
+@mixin flexCenterCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexCenterBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin columCountWidth($count) {
+  width: calc((100vw - var(--container) * 2) / 12 * $count);
+}
+
+@mixin columCountMaxWidth($count) {
+  max-width: calc((100vw - var(--container) * 2) / 12 * $count);
+}
+
+@mixin columnCountXlWidth($count) {
+  width: calc(var(--container-max-width) / 12 * $count);
+}
+@mixin columnCountMaxXlWidth($count) {
+  max-width: calc(var(--container-max-width) / 12 * $count);
+}
