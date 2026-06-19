@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
@@ -42,7 +42,7 @@ jobs:
           fi
 
       - name: Upload production build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: frontend-dist
           path: dist/frontend/browser
@@ -55,7 +55,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -74,7 +74,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Check Docker on runner
+        shell: bash
+        run: |
+          if ! command -v docker >/dev/null 2>&1; then
+            echo "::error::Docker is not installed or is not available in PATH on this self-hosted runner."
+            echo "Install Docker Engine and the Docker Compose plugin on the server that runs this GitHub runner."
+            exit 1
+          fi
+
+          docker version
+          docker compose version
 
       - name: Deploy frontend with Docker Compose
         run: docker compose up -d --build --remove-orphans frontend
