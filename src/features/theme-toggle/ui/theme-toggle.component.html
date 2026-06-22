@@ -1,12 +1,26 @@
-<div class="mb-3 flex justify-center">
-  <div id="toggle-count" class="border-base-content/20 flex gap-0.5 rounded-field border p-0.5">
-    <label for="toggle-count-monthly" class="btn btn-sm btn-text has-checked:btn-active">
-      <span>Monthly</span>
-      <input id="toggle-count-monthly" name="toggle-count" type="radio" class="hidden" checked="" />
-    </label>
-    <label for="toggle-count-annual" class="btn btn-sm btn-text has-checked:btn-active">
-      <span>Annually</span>
-      <input id="toggle-count-annual" name="toggle-count" type="radio" class="hidden" />
-    </label>
-  </div>
+<div class="theme-toggle">
+  <input 
+    type="checkbox" 
+    id="theme-toggle" 
+    [checked]="isDarkTheme()" 
+    (change)="toggleTheme()">
+  
+  <label for="theme-toggle" class="theme-toggle__control">
+    <div class="theme-toggle__thumb">
+      @if (!isDarkTheme()) {
+        <span class="theme-toggle__icon theme-toggle__icon--sun">
+          <app-icon
+            [name]="'sun'"
+            [size]="16" />
+        </span>
+      } @else {
+        <span class="theme-toggle__icon theme-toggle__icon--moon">
+          <app-icon
+            class="text-yellow-500"
+            [name]="'moon'"
+            [size]="16" />
+        </span>
+      }
+    </div>
+  </label>
 </div>

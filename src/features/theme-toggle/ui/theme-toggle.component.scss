@@ -1,0 +1,47 @@
+@use "styles/mixins" as *;
+
+.theme-toggle {
+  @include flexColumn;
+
+  align-items: center;
+  gap: 10px;
+  position: relative;
+
+  &:has(input:checked) {
+    .theme-toggle__thumb {
+      transform: translateX(38px);
+      box-shadow: 0 0 18px #4f8cff;
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  &__control {
+    width: 78px;
+    height: 38px;
+    border-radius: 40px;
+    position: relative;
+    cursor: pointer;
+    background: #262a33;
+  }
+
+  &__thumb {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 50%;
+    transition: 0.35s;
+    background: #fff;
+  }
+
+  &__icon {
+    @include flexCenterCenter;
+
+    width: 100%;
+    height: 100%;
+  }
+}

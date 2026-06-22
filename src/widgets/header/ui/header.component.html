@@ -1,17 +1,17 @@
 <header class="header border-b border-surface-200/60 bg-surface-50/75 shadow-sm backdrop-blur-xl dark:border-surface-800/70 dark:bg-surface-950/70">
   <div class="container">
-    <nav class="header__nav justify-between flex">
+    <div class="header__nav justify-between flex">
         <a routerLink="/" class="font-bold text-xl">
           Task Space
         </a>
 
         <nav class="flex items-center gap-2">
-          <a routerLink="/" class="btn preset-tonal-surface">
-            Home
-          </a>
-
-          <app-theme-toggle/>
+          <ul>
+            <li>
+              <app-theme-toggle/>
+            </li>
+          </ul>
         </nav>
-    </nav>
+    </div>
   </div>
 </header>
