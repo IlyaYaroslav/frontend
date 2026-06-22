@@ -1,17 +1,30 @@
-<header class="header border-b border-surface-200/60 bg-surface-50/75 shadow-sm backdrop-blur-xl dark:border-surface-800/70 dark:bg-surface-950/70">
+<header class="header dark:bg-surface-800/30">
   <div class="container">
-    <div class="header__nav justify-between flex">
-        <a routerLink="/" class="font-bold text-xl">
-          Task Space
-        </a>
+    <div class="header__inner">
+      <a routerLink="/" class="font-bold text-xl">
+        Task Space
+      </a>
 
-        <nav class="flex items-center gap-2">
-          <ul>
+      <nav class="header__nav">
+        <ul>
+          @for (link of headerNav; track link.label) {
             <li>
-              <app-theme-toggle/>
+              <a
+                class="header__link"
+                [routerLink]="link.routerLink"
+                [routerLinkActive]="'header__link-active'">{{ link.label }}</a>
             </li>
-          </ul>
-        </nav>
+          }
+        </ul>
+      </nav>
+
+      <app-theme-toggle />
+
+      <a class="header__user" routerLink="/user">
+        <div class="header__user-icon">
+          <app-icon [name]="'user'" [size]="25" />
+        </div>
+      </a>
     </div>
   </div>
 </header>

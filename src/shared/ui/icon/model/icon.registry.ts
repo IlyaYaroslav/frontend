@@ -1,6 +1,7 @@
-import { LucideMoon, LucideSun } from '@lucide/angular';
+import { LucideMoon, LucideSun, LucideUserRound } from '@lucide/angular';
 
 export const iconRegistry = {
   moon: LucideMoon,
-  sun: LucideSun
+  sun: LucideSun,
+  user: LucideUserRound,
 } as const;
