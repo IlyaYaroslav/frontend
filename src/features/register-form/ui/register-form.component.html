@@ -1,5 +1,5 @@
-<form class="w-full max-w-md space-y-4 p-4">
-  <fieldset class="space-y-4">
+<form class="register-form" (submit)="onSubmit($event)">
+  <fieldset class="register-inputs">
     <app-input-string
       [id]="'register-login'"
       [label]="'Логин'"
@@ -7,8 +7,28 @@
       [autocomplete]="'username'"
       [field]="registerForm.login"
       [submitted]="submitted()" />
+
+    <app-input-string
+      [id]="'register-password'"
+      [label]="'Пароль'"
+      [placeholder]="'Введите пароль'"
+      [autocomplete]="'new-password'"
+      [field]="registerForm.password"
+      [submitted]="submitted()" />
+
+    <app-input-string
+      [id]="'register-confirm-passworn'"
+      [label]="'Повторите пароль'"
+      [placeholder]="'Повторите пароль'"
+      [autocomplete]="'new-password'"
+      [field]="registerForm.confirmPassword"
+      [submitted]="submitted()" />
   </fieldset>
-  <fieldset class="flex justify-end">
-    <button type="button" class="btn preset-outlined-surface-300-700">Submit</button>
+  <fieldset class="">
+    <button
+      type="submit"
+      class="btn preset-outlined-surface-300-700"
+      [disabled]="registerForm().submitting()">Зарегистрироваться
+    </button>
   </fieldset>
 </form>

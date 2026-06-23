@@ -28,6 +28,6 @@ export class InputStringComponent {
       return null;
     }
     
-    return state.errors()[0].message ?? null;
+    return state.errors()[0]?.message ?? null;
   })
 }

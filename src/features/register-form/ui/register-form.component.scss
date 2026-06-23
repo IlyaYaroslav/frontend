@@ -1,0 +1,18 @@
+@use "styles/mixins" as *;
+
+:host {
+  width: 500px;
+  display: block;
+}
+
+.register-form {
+  @include flexColumn;
+  
+  gap: 10px;
+}
+
+.register-inputs {
+  @include flexColumn;
+  
+  gap: 5px;
+}

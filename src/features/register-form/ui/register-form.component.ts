@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { form, minLength, pattern, required, submit, validate } from '@angular/forms/signals'
 import { RegisterFormModel } from '@features/register-form'
 import { PASSWORD_PATTERN } from '@shared/regex'
@@ -11,6 +11,7 @@ import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.co
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
   readonly submitted = signal(false);
@@ -49,9 +50,9 @@ export class RegisterFormComponent {
         field().focusBoundControl();
       },
       action: async (field) => {
-        const value = field().value();
+        const { login, password } = field().value();
 
-        console.log('register payload', value);
+        console.log('register payload', { login, password });
 
         return undefined;
       },
