@@ -1,15 +1,33 @@
 <label class="label" [for]="id()">
   <span class="label-text">{{ label() }}</span>
+  
+  <div class="input-wrapper">
+    <input
+      class="input"
+      [id]="id()"
+      [type]="inputType()"
+      [placeholder]="placeholder()"
+      [autocomplete]="autocomplete()"
+      [formField]="field()"
+      [attr.aria-invalid]="errorMessage() ? true : null"
+      [attr.aria-describedby]="errorMessage() ? id() + '-error' : null" />
 
-  <input
-    class="input"
-    [id]="id()"
-    [type]="type()"
-    [placeholder]="placeholder()"
-    [autocomplete]="autocomplete()"
-    [formField]="field()"
-    [attr.aria-invalid]="errorMessage() ? true : null"
-    [attr.aria-describedby]="errorMessage() ? id() + '-error' : null" />
+    @if (passwordShowControl() && type() === 'password') {
+      <button
+        class="toggle-visibility"
+        type="button"
+        [attr.aria-label]="isShowedPassword() ? 'Скрыть пароль' : 'Показать пароль'"
+        [attr.aria-pressed]="isShowedPassword()"
+        (click)="togglePasswordVisibility()">
+        @if (isShowedPassword()) {
+          <app-icon name="hide" [size]="20" />
+        } @else {
+          <app-icon name="show" [size]="20"></app-icon>
+        }
+      </button>
+    }
+  </div>
+
 
   @if (errorMessage(); as error) {
     <span [id]="id() + '-error'" class="error-message">

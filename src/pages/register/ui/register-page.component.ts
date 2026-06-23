@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegisterFormComponent } from '@features/register-form/ui/register-form.component';
+import { RegisterFormComponent } from '@features/register-form';
 import { RegisterLayoutComponent } from '@widgets/register-layout';
 
 @Component({
@@ -11,6 +11,4 @@ import { RegisterLayoutComponent } from '@widgets/register-layout';
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss',
 })
-export class RegisterPageComponent {
-
-}
+export class RegisterPageComponent {}

@@ -9,6 +9,4 @@ import { RouterLink } from '@angular/router';
   templateUrl: './register-layout.component.html',
   styleUrl: './register-layout.component.scss',
 })
-export class RegisterLayoutComponent {
-
-}
+export class RegisterLayoutComponent {}

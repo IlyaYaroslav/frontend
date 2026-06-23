@@ -7,6 +7,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './login-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPageComponent {
-
-}
+export class LoginPageComponent {}
