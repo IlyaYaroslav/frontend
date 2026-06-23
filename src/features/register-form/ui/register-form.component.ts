@@ -1,11 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { form, minLength, pattern, required, submit, validate } from '@angular/forms/signals'
+import { RegisterFormModel } from '@features/register-form'
+import { PASSWORD_PATTERN } from '@shared/regex'
+import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component'
 
 @Component({
   selector: 'app-register-form',
-  imports: [],
+  imports: [
+    InputStringComponent,
+  ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',
 })
 export class RegisterFormComponent {
+  readonly submitted = signal(false);
 
+  protected readonly model = signal<RegisterFormModel>({
+    login: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  protected readonly registerForm = form(this.model, (path) => {
+    required(path.login, { message: 'Введите логин' });
+    minLength(path.login, 3, { message: 'Логин должен быть не короче 3 символов' });
+
+    required(path.password, { message: 'Введите пароль' });
+    minLength(path.password, 8, { message: 'Пароль должен быть не короче 8 символов' });
+    pattern(path.password, PASSWORD_PATTERN, { message: 'Пароль должен содержать заглавную букву, строчную букву, цифру и спецсимвол' });
+
+    required(path.confirmPassword, { message: 'Повторите пароль' });
+
+    validate(path.confirmPassword, ({ value, valueOf }) => {
+      return value() === valueOf(path.password) ? undefined : {
+        kind: 'passwordMismatch',
+        message: 'Пароли не совпадают',
+      }
+    });
+  })
+
+  async onSubmit(event: SubmitEvent): Promise<void> {
+    event.preventDefault();
+
+    this.submitted.set(true);
+
+    await submit(this.registerForm, {
+      onInvalid: (field) => {
+        field().focusBoundControl();
+      },
+      action: async (field) => {
+        const value = field().value();
+
+        console.log('register payload', value);
+
+        return undefined;
+      },
+    })
+  }
 }

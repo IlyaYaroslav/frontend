@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeToggleComponent } from '@features/theme-toggle';
@@ -11,6 +12,7 @@ import { HEADER_NAVIGATION, HeaderNavItem } from '../navigation/header.navigatio
     ThemeToggleComponent,
     IconComponent,
     RouterLinkActive,
+    NgOptimizedImage,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

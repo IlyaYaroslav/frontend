@@ -1,1 +1,14 @@
-<p>register-form works!</p>
+<form class="w-full max-w-md space-y-4 p-4">
+  <fieldset class="space-y-4">
+    <app-input-string
+      [id]="'register-login'"
+      [label]="'Логин'"
+      [placeholder]="'Введите логин'"
+      [autocomplete]="'username'"
+      [field]="registerForm.login"
+      [submitted]="submitted()" />
+  </fieldset>
+  <fieldset class="flex justify-end">
+    <button type="button" class="btn preset-outlined-surface-300-700">Submit</button>
+  </fieldset>
+</form>
