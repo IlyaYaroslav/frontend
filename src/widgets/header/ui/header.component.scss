@@ -4,10 +4,16 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(6.3px);
   
+  &__company {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 30px;
+  }
+  
   &__inner {
     @include flexCenterBetween;
 
-    padding: 20px;
+    padding: 15px;
     gap: 200px;
   }
   
@@ -55,6 +61,7 @@
   
   &__user {
     @include flexCenterCenter;
+    gap: 20px;
     
     &-icon {
       @include flexCenterCenter;

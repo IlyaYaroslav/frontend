@@ -1,5 +1,23 @@
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
   font-size: 14px;
+  min-height: 100vh;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #7c3aed, #06b6d4, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
