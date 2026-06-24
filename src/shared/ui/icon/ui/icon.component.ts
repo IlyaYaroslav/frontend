@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { LucideDynamicIcon } from '@lucide/angular';
+import { iconRegistry } from 'public/icons/icon.registry';
 import { IconName } from '../model/icon.model';
-import { iconRegistry } from '../model/icon.registry';
 
 @Component({
   selector: 'app-icon',

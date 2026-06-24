@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals'
-import { RegisterFormModel } from '@features/register-form'
-import { PASSWORD_PATTERN } from '@shared/regex'
-import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component'
+import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals';
+import { PASSWORD_PATTERN } from '@shared/regex';
+import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { RegisterFormModel } from '../model/register-form.model';
 
 @Component({
   selector: 'app-register-form',

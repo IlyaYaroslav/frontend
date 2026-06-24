@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop'
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router'
-import { LoginFormComponent } from '@features/login-form/ui/login-form.component'
-import { RegisterFormComponent } from '@features/register-form'
-import { AuthLayoutComponent } from '@widgets/auth-layout/ui/auth-layout.component'
-import { map } from 'rxjs'
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { LoginFormComponent } from '@features/login-form/ui/login-form.component';
+import { RegisterFormComponent } from '@features/register-form';
+import { AuthLayoutComponent } from '@widgets/auth-layout/ui/auth-layout.component';
+import { map } from 'rxjs';
 import { AuthMode } from '../model/auth.model';
 
 @Component({
@@ -27,7 +27,7 @@ export class AuthPageComponent {
     this.route.data.pipe(
       map((data) => data['mode'] as AuthMode | undefined),
     ), { initialValue: 'login' as AuthMode },
-  )
+  );
 
   protected readonly mode = computed<AuthMode>(() => this.routeMode() ?? 'login');
 }
