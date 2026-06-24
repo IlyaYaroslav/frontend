@@ -41,7 +41,7 @@
       type="submit"
       class="btn preset-filled-primary-500 w-full"
       [title]="'Зарегистрироваться'"
-      [disabled]="registerForm().submitting()">Зарегистрироваться
+      [disabled]="registerForm().submitting() || registerForm().invalid()">Зарегистрироваться
     </button>
   </fieldset>
 </form>

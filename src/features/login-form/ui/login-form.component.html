@@ -23,7 +23,7 @@
       type="submit"
       class="btn preset-filled-primary-500 w-full"
       [title]="'Войти'"
-      [disabled]="loginForm().submitting()">Войти
+      [disabled]="loginForm().submitting() || loginForm().invalid()">Войти
     </button>
   </fieldset>
 </form>

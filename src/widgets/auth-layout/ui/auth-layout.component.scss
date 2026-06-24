@@ -1,3 +1,5 @@
+@use "styles/mixins" as *;
+
 :host {
   display: flex;
   flex: 1;
@@ -5,10 +7,11 @@
 }
 
 .auth-layout {
-  display: flex;
+  @include flexColumn;
+  
   flex: 1;
   width: 100%;
-  flex-direction: column;
+  justify-content: center;
 }
 
 .auth-layout__content {

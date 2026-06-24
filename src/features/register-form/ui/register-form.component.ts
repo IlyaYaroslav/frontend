@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals';
-import { PASSWORD_PATTERN } from '@shared/regex';
+import { NAME_PATTERN, PASSWORD_PATTERN } from '@shared/regex';
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
 import { RegisterFormModel } from '../model/register-form.model';
 
@@ -25,10 +25,13 @@ export class RegisterFormComponent {
 
   protected readonly registerForm = form(this.model, (path) => {
     required(path.name, { message: 'Введите имя' });
-    minLength(path.name, 2, { message: 'Имя должен быть не короче 2 символов' });
+    minLength(path.name, 2, { message: 'Имя должно быть не короче 2 символов' });
+    pattern(path.name, NAME_PATTERN, {
+      message: 'Имя должно содержать только буквы, пробел, дефис или апостроф',
+    });
 
     required(path.email, { message: 'Введите email' });
-    email(path.email, { message: 'Введите корректный email' })
+    email(path.email, { message: 'Введите корректный email: example@mail.com' });
 
     required(path.password, { message: 'Введите пароль' });
     minLength(path.password, 8, { message: 'Пароль должен быть не короче 8 символов' });
@@ -40,9 +43,9 @@ export class RegisterFormComponent {
       return value() === valueOf(path.password) ? undefined : {
         kind: 'passwordMismatch',
         message: 'Пароли не совпадают',
-      }
+      };
     });
-  })
+  });
 
   async onSubmit(event: SubmitEvent): Promise<void> {
     event.preventDefault();
@@ -56,10 +59,10 @@ export class RegisterFormComponent {
       action: async (field) => {
         const { name, email, password } = field().value();
 
-        console.log('register payload', { name, email, password  });
+        console.log('register payload', { name, email, password });
 
         return;
       },
-    })
+    });
   }
 }

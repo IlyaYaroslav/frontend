@@ -1,0 +1,1 @@
+export const NAME_PATTERN = /^[\p{L}][\p{L}\p{M}' -]*$/u;
