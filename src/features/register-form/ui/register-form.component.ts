@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { form, minLength, pattern, required, submit, validate } from '@angular/forms/signals'
+import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals'
 import { RegisterFormModel } from '@features/register-form'
 import { PASSWORD_PATTERN } from '@shared/regex'
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component'
@@ -17,14 +17,18 @@ export class RegisterFormComponent {
   readonly submitted = signal(false);
 
   protected readonly model = signal<RegisterFormModel>({
-    login: '',
+    name: '',
+    email: '',
     password: '',
     confirmPassword: '',
   });
 
   protected readonly registerForm = form(this.model, (path) => {
-    required(path.login, { message: 'Введите логин' });
-    minLength(path.login, 3, { message: 'Логин должен быть не короче 3 символов' });
+    required(path.name, { message: 'Введите имя' });
+    minLength(path.name, 2, { message: 'Имя должен быть не короче 2 символов' });
+
+    required(path.email, { message: 'Введите email' });
+    email(path.email, { message: 'Введите корректный email' })
 
     required(path.password, { message: 'Введите пароль' });
     minLength(path.password, 8, { message: 'Пароль должен быть не короче 8 символов' });
@@ -50,11 +54,11 @@ export class RegisterFormComponent {
         field().focusBoundControl();
       },
       action: async (field) => {
-        const { login, password } = field().value();
+        const { name, email, password } = field().value();
 
-        console.log('register payload', { login, password });
+        console.log('register payload', { name, email, password  });
 
-        return undefined;
+        return;
       },
     })
   }

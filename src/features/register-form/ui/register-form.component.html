@@ -1,11 +1,19 @@
-<form class="register-form dark:bg-surface-800/30" (submit)="onSubmit($event)">
+<form class="register-form" (submit)="onSubmit($event)">
   <fieldset class="register-inputs">
     <app-input-string
-      [id]="'register-login'"
-      [label]="'Логин'"
-      [placeholder]="'Введите логин'"
+      [id]="'register-name'"
+      [label]="'Имя'"
+      [placeholder]="'Введите имя'"
       [autocomplete]="'username'"
-      [field]="registerForm.login"
+      [field]="registerForm.name"
+      [submitted]="submitted()" />
+    
+    <app-input-string
+      [id]="'register-email'"
+      [label]="'E-mail'"
+      [placeholder]="'Введите e-mail'"
+      [autocomplete]="'email'"
+      [field]="registerForm.email"
       [submitted]="submitted()" />
 
     <app-input-string
@@ -31,7 +39,7 @@
   <fieldset class="submit-btn">
     <button
       type="submit"
-      class="btn preset-outlined-surface-300-700"
+      class="btn preset-filled-primary-500 w-full"
       [title]="'Зарегистрироваться'"
       [disabled]="registerForm().submitting()">Зарегистрироваться
     </button>

@@ -1,0 +1,19 @@
+@use "styles/mixins" as *;
+
+:host {
+  width: 450px;
+  display: block;
+}
+
+.login-form {
+  @include flexColumn;
+
+  gap: 40px;
+}
+
+.login-inputs {
+  @include flexColumn;
+
+  gap: 20px;
+  width: 100%;
+}

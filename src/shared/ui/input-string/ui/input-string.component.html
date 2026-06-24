@@ -1,5 +1,5 @@
 <label class="label" [for]="id()">
-  <span class="label-text">{{ label() }}</span>
+  <span class="label-text font-bold">{{ label() }}</span>
   
   <div class="input-wrapper">
     <input
@@ -17,6 +17,7 @@
         class="toggle-visibility"
         type="button"
         [attr.aria-label]="isShowedPassword() ? 'Скрыть пароль' : 'Показать пароль'"
+        [title]="isShowedPassword() ? 'Показать пароль' : 'Скрыть пароль'"
         [attr.aria-pressed]="isShowedPassword()"
         (click)="togglePasswordVisibility()">
         @if (isShowedPassword()) {
