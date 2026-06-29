@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals';
+import { RegisterApi, UserRegisterResponseModel } from '@features/register-form';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@shared/regex';
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { firstValueFrom } from 'rxjs';
 import { RegisterFormModel } from '../model/register-form.model';
 
 @Component({
@@ -14,6 +16,8 @@ import { RegisterFormModel } from '../model/register-form.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
+  private readonly registerApi = inject(RegisterApi);
+
   readonly submitted = signal(false);
 
   protected readonly model = signal<RegisterFormModel>({
@@ -35,7 +39,7 @@ export class RegisterFormComponent {
 
     required(path.password, { message: 'Введите пароль' });
     minLength(path.password, 8, { message: 'Пароль должен быть не короче 8 символов' });
-    pattern(path.password, PASSWORD_PATTERN, { message: 'Пароль должен содержать заглавную букву, строчную букву, цифру и спецсимвол' });
+    pattern(path.password, PASSWORD_PATTERN, { message: 'Пароль должен содержать заглавную букву, строчную букву, цифру' });
 
     required(path.confirmPassword, { message: 'Повторите пароль' });
 
@@ -57,9 +61,9 @@ export class RegisterFormComponent {
         field().focusBoundControl();
       },
       action: async (field) => {
-        const { name, email, password } = field().value();
+        const { confirmPassword, ...payload } = field().value();
 
-        console.log('register payload', { name, email, password });
+        const response: UserRegisterResponseModel = await firstValueFrom(this.registerApi.register(payload));
 
         return;
       },
