@@ -8,4 +8,9 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
- 
+    networks:
+      - taskspace-net
+
+networks:
+  taskspace-net:
+    external: true
