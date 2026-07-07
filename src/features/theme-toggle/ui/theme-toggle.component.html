@@ -1,8 +1,9 @@
 <p-toggleswitch
-  styleClass="theme-toggle-switch"
+  class="theme-toggle-switch"
   [ngModel]="isDarkTheme()"
   (ngModelChange)="toggleTheme()"
   ariaLabel="Переключить тему"
+  [pt]="togglePt"
 >
   <ng-template #handle let-checked="checked">
     <span
@@ -11,7 +12,7 @@
       [class.theme-toggle-switch__icon--sun]="!checked"
       aria-hidden="true"
     >
-      <app-icon [name]="checked ? 'moon' : 'sun'" [size]="14" />
+      <app-icon [name]="checked ? 'moon' : 'sun'" [size]="16" />
     </span>
   </ng-template>
 </p-toggleswitch>

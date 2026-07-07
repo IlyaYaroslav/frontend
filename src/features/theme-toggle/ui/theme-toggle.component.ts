@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AppActions, selectIsDarkTheme } from '@app/store';
 import { Store } from '@ngrx/store';
 import { IconComponent } from '@shared/ui/icon';
-import { ToggleSwitch } from 'primeng/toggleswitch';
+import { ToggleSwitch, ToggleSwitchPassThrough } from 'primeng/toggleswitch';
 
 @Component({
   selector: 'app-theme-toggle',
@@ -20,8 +20,20 @@ export class ThemeToggleComponent {
   private readonly store = inject(Store);
 
   protected readonly isDarkTheme = this.store.selectSignal(selectIsDarkTheme);
-
+  
   protected toggleTheme(): void {
     this.store.dispatch(AppActions.toggleThemeMode());
+  }
+  
+  protected readonly togglePt: ToggleSwitchPassThrough | undefined = {
+    input: {
+      class: 'theme-toggle-switch__input',
+    },
+    slider: {
+      class: 'theme-toggle-switch__slider',
+    },
+    handle: {
+      class: 'theme-toggle-switch__handle',
+    },
   }
 }
