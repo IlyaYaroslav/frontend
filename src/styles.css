@@ -3,18 +3,16 @@
 @import '@skeletonlabs/skeleton';
 @import '@skeletonlabs/skeleton/themes/cerberus';
 
+@import "primeicons/primeicons.css";
+
 @custom-variant dark (&:where([data-mode='dark'], [data-mode='dark'] *));
 
 body {
     color: var(--base-font-color);
-    background: #ECE9E6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ffffff, #ece9e6);
 }
 
 html[data-mode='dark'] body {
-    background: #152331;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #000000, #152331);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #000000, #152331); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #000000, #152331);
     color: var(--base-font-color-dark);
 }

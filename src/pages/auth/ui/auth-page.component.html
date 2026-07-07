@@ -1,18 +1,16 @@
 <app-auth-layout>
-  <section class="auth-card dark:bg-surface-800/30">
-    <nav class="auth-card__tabs">
-      <a
-        routerLink="/login"
-        routerLinkActive="auth-card__tab--active"
-        class="auth-card__tab"
-      >Вход</a>
+  <section class="auth-card">
+    <p-tabs [value]="mode()" class="auth-tabs">
+      <p-tablist>
+        <p-tab value="login" routerLink="/login">
+          Вход
+        </p-tab>
 
-      <a
-        routerLink="/register"
-        routerLinkActive="auth-card__tab--active"
-        class="auth-card__tab"
-      >Регистрация</a>
-    </nav>
+        <p-tab value="register" routerLink="/register">
+          Регистрация
+        </p-tab>
+      </p-tablist>
+    </p-tabs>
     
     @if (mode() === 'login') {
       <app-login-form />

@@ -3,15 +3,14 @@
     <app-input-string
       [id]="'register-name'"
       [label]="'Имя'"
-      [placeholder]="'Введите имя'"
       [autocomplete]="'username'"
       [field]="registerForm.name"
+      [clear]="true"
       [submitted]="submitted()" />
     
     <app-input-string
       [id]="'register-email'"
       [label]="'E-mail'"
-      [placeholder]="'Введите e-mail'"
       [autocomplete]="'email'"
       [field]="registerForm.email"
       [submitted]="submitted()" />
@@ -20,28 +19,32 @@
       [id]="'register-password'"
       [label]="'Пароль'"
       [type]="'password'"
-      [placeholder]="'Введите пароль'"
       [autocomplete]="'new-password'"
       [field]="registerForm.password"
-      [passwordShowControl]="true"
       [submitted]="submitted()" />
 
     <app-input-string
       [id]="'register-confirm-password'"
       [label]="'Повторите пароль'"
       [type]="'password'"
-      [placeholder]="'Повторите пароль'"
       [autocomplete]="'new-password'"
       [field]="registerForm.confirmPassword"
-      [passwordShowControl]="true"
       [submitted]="submitted()" />
   </fieldset>
-  <fieldset class="submit-btn">
+  <fieldset class="form-actions">
     <button
       type="submit"
-      class="btn preset-filled-primary-500 w-full"
-      [title]="'Зарегистрироваться'"
-      [disabled]="registerForm().submitting() || registerForm().invalid()">Зарегистрироваться
+      class="submit-btn"
+      pButton
+      raised
+      severity="contrast"
+      title="Зарегистрироваться" 
+      [loading]="loading()">
+      @if (loading()) {
+        Регистрация... <app-icon [name]="'loader'" class="animate-spin"/>
+      } @else {
+        Зарегистрироваться
+      }
     </button>
   </fieldset>
 </form>

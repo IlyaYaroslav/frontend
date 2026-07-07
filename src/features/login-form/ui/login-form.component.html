@@ -3,7 +3,6 @@
     <app-input-string
       [id]="'register-email'"
       [label]="'E-mail'"
-      [placeholder]="'Введите e-mail'"
       [autocomplete]="'email'"
       [field]="loginForm.email"
       [submitted]="submitted()" />
@@ -12,18 +11,24 @@
       [id]="'register-password'"
       [label]="'Пароль'"
       [type]="'password'"
-      [placeholder]="'Введите пароль'"
       [autocomplete]="'new-password'"
       [field]="loginForm.password"
-      [passwordShowControl]="true"
       [submitted]="submitted()" />
   </fieldset>
-  <fieldset class="submit-btn">
+  <fieldset class="form-actions">
     <button
       type="submit"
-      class="btn preset-filled-primary-500 w-full"
-      [title]="'Войти'"
-      [disabled]="loginForm().submitting() || loginForm().invalid()">Войти
+      class="submit-btn"
+      title="Войти"
+      pButton
+      raised
+      severity="contrast"
+      >
+      @if (loading()) {
+        Вход... <app-icon [name]="'loader'" class="animate-spin"/>
+      } @else {
+        Войти
+      }
     </button>
   </fieldset>
 </form>

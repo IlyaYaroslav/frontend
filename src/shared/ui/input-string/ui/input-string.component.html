@@ -1,38 +1,63 @@
-<label class="label" [for]="id()">
-  <span class="label-text font-bold">{{ label() }}</span>
-  
-  <div class="input-wrapper">
-    <input
-      class="input"
-      [id]="id()"
-      [type]="inputType()"
-      [placeholder]="placeholder()"
-      [autocomplete]="autocomplete()"
-      [formField]="field()"
-      [attr.aria-invalid]="errorMessage() ? true : null"
-      [attr.aria-describedby]="errorMessage() ? id() + '-error' : null" />
+<p-floatlabel variant="on">
 
-    @if (passwordShowControl() && type() === 'password') {
-      <button
-        class="toggle-visibility"
-        type="button"
-        [attr.aria-label]="isShowedPassword() ? 'Скрыть пароль' : 'Показать пароль'"
-        [title]="isShowedPassword() ? 'Показать пароль' : 'Скрыть пароль'"
-        [attr.aria-pressed]="isShowedPassword()"
-        (click)="togglePasswordVisibility()">
-        @if (isShowedPassword()) {
-          <app-icon name="hide" [size]="20" />
-        } @else {
-          <app-icon name="show" [size]="20"></app-icon>
-        }
-      </button>
-    }
-  </div>
+  @if (type() === 'text') {
+    <p-iconfield>
+      <input
+        pInputText
+        class="input"
+        [pSize]="size()"
+        [class.p-invalid]="showError()"
+        [id]="id()"
+        [type]="type()"
+        [formField]="field()"
+        [autocomplete]="'off'"
+        [attr.aria-invalid]="showError()"
+        [attr.aria-describedby]="showError() ? id() + '-error' : null"
+      />
 
-
-  @if (errorMessage(); as error) {
-    <span [id]="id() + '-error'" class="error-message">
-      {{ error }}
-    </span>
+      @if (value() && clear()) {
+        <p-inputicon (click)="clearValue()" style="cursor: pointer">
+          <app-icon name="close" [size]="16" />
+        </p-inputicon>
+      }
+    </p-iconfield>
   }
-</label>
+
+  @if (type() === 'password') {
+    <p-iconfield>
+      <input
+        pInputText
+        class="input"
+        [pSize]="size()"
+        [class.p-invalid]="showError()"
+        [id]="id()"
+        [type]="type()"
+        [formField]="field()"
+        [autocomplete]="autocomplete()"
+        [attr.aria-invalid]="showError()"
+        [attr.aria-describedby]="showError() ? id() + '-error' : null"
+      />
+
+      <p-inputicon
+        (click)="toggleMask()"
+        style="cursor: pointer"
+      >
+        <app-icon [name]="mask ? 'show' : 'hide'" [size]="16" />
+      </p-inputicon>
+    </p-iconfield>
+  }
+
+
+  <label [for]="id()">{{ label() }}</label>
+</p-floatlabel>
+
+@if (showError()) {
+  <p-message
+    styleClass="input-error-message"
+    [attr.id]="id() + '-error'"
+    severity="error"
+    variant="simple"
+    size="small">
+    {{ errorMessage() }}
+  </p-message>
+}

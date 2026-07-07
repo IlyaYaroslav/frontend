@@ -1,49 +1,15 @@
 @use "styles/mixins" as *;
 
-.input-wrapper {
-  width: 100%;
-  position: relative;
+:host {
+  @include flexColumn;
+  
+  gap: 3px;
 }
 
 .input {
-  border: 1px solid var(--color-surface-300);
-  border-radius: var(--radius-base);
-  padding: 5px;
   font-size: 14px;
-  outline: none;
-  transition: border-color 160ms ease,
-  box-shadow 160ms ease,
-  background-color 160ms ease;
-
-  &::placeholder {
-    color: var(--color-surface-500);
-  }
-
-  &:hover {
-    border-color: var(--color-surface-400);
-  }
-
-  &:focus {
-    border-color: var(--color-primary-500);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary-500) 22%, transparent);
-  }
-
-  &[aria-invalid='true'] {
-    border-color: var(--color-error-500);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-error-500) 18%, transparent);
-  }
 }
 
-.error-message {
-  display: block;
-  margin-top: 6px;
+:host ::ng-deep .input-error-message {
   font-size: 12px;
-  color: var(--color-error-500);
-}
-
-.toggle-visibility {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
 }

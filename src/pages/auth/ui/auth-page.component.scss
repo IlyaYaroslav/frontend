@@ -1,3 +1,6 @@
+@use "styles/backgrounds" as *;
+@use "styles/mixins" as *;
+
 :host {
   display: flex;
   flex: 1;
@@ -5,40 +8,23 @@
 }
 
 .auth-card {
-  width: min(100%, 520px);
-  padding: 32px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(6.3px);
-  border-radius: 10px;
+  @include liquidGlass;
+  @include flexColumn;
+  
+  gap: 20px;
+  width: min(100%, 420px);
+  padding: 20px;
+  border-radius: 20px;
 }
 
-.auth-card__tabs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 28px;
-  border-bottom: 1px solid var(--color-surface-300);
+.p-tablist {
+  --p-tabs-tablist-background: none;
 }
 
-.auth-card__tab {
-  position: relative;
-  padding: 0 0 14px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-surface-950-50);
-  text-decoration: none;
-}
-
-.auth-card__tab--active {
-  color: var(--color-primary-500);
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    bottom: -1px;
-    height: 2px;
-    background: currentColor;
-    border-radius: 2px;
+.auth-tabs {
+  
+  .p-tab {
+    flex: 1 1 0;
+    justify-content: center;
   }
 }

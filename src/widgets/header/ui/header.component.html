@@ -4,21 +4,8 @@
 
       <a routerLink="/" class="header__brand">
         <img ngSrc="/images/logo/logo.svg" alt="Логотип компании" width="50" height="50">
-        <span class="uppercase gradient-text header__brand-title">Task Space</span>
+        <span class="uppercase header__brand-title">Task Space</span>
       </a>
-
-<!--      <nav class="header__nav">-->
-<!--        <ul>-->
-<!--          @for (link of headerNav; track link.label) {-->
-<!--            <li>-->
-<!--              <a-->
-<!--                class="header__link"-->
-<!--                [routerLink]="link.routerLink"-->
-<!--                [routerLinkActive]="'header__link-active'">{{ link.label }}</a>-->
-<!--            </li>-->
-<!--          }-->
-<!--        </ul>-->
-<!--      </nav>-->
       
       <div class="header__user">
         <app-theme-toggle />

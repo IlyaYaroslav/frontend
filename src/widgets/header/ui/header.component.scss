@@ -1,8 +1,14 @@
 @use "styles/mixins" as *;
+@use "styles/backgrounds" as *;
+
+:host {
+  padding: 10px;
+}
 
 .header {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(6.3px);
+  @include liquidGlass();
+  
+  border-radius: 999px;
   
   &__brand {
     @include flexAlignCenter;
@@ -11,57 +17,15 @@
     
     &-title {
       font-weight: 900;
-      font-size: 30px;
+      font-size: 22px;
     }
   }
   
   &__inner {
     @include flexCenterBetween;
 
-    padding: 15px;
+    padding: 10px;
     gap: 200px;
-  }
-  
-  &__nav {
-    margin-right: auto;
-    font-size: 20px;
-    text-transform: uppercase;
-
-    ul {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-  }
-  
-  &__link {
-    position: relative;
-    color: inherit;
-    
-    &:hover:after {
-      transform: scaleX(1) translateZ(0);
-    }
-    
-    &::after {
-      content: "";
-      position: absolute;
-      inset-inline: 0;
-      height: 2px;
-      background-color: currentColor;
-      top: calc(100% + 1px);
-      transform: scaleX(0) translateZ(0);
-      transform-origin: left;
-      transition: transform .3s ease;
-    }
-    
-    &-active {
-      &:after {
-        transform: scaleX(1) translateZ(0);
-      }
-    }
   }
   
   &__user {

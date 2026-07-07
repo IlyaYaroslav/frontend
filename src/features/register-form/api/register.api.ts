@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { UserRegisterRequestModel, UserRegisterResponseModel } from '@features/register-form';
 import { USER_API_URL } from '@shared/api/api.tokens';
 import { Observable } from 'rxjs';
+import { UserRegisterRequestModel, UserRegisterResponseModel } from './register.contracts';
 
 @Injectable({
   providedIn: 'root',

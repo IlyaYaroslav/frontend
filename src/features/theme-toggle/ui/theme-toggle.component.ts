@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AppActions, selectIsDarkTheme } from '@app/store';
 import { Store } from '@ngrx/store';
 import { IconComponent } from '@shared/ui/icon';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
   selector: 'app-theme-toggle',
   imports: [
+    ToggleSwitch,
+    FormsModule,
     IconComponent,
   ],
   templateUrl: './theme-toggle.component.html',

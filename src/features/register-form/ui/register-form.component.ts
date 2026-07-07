@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals';
-import { RegisterApi, UserRegisterResponseModel } from '@features/register-form';
+import { Router } from '@angular/router';
+import { RegisterApi } from '@features/register-form';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@shared/regex';
+import { IconComponent } from '@shared/ui/icon';
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { MessageService } from 'primeng/api';
+import { ButtonDirective, ButtonModule } from 'primeng/button';
 import { firstValueFrom } from 'rxjs';
 import { RegisterFormModel } from '../model/register-form.model';
 
@@ -10,6 +14,9 @@ import { RegisterFormModel } from '../model/register-form.model';
   selector: 'app-register-form',
   imports: [
     InputStringComponent,
+    ButtonDirective,
+    ButtonModule,
+    IconComponent,
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',
@@ -17,8 +24,12 @@ import { RegisterFormModel } from '../model/register-form.model';
 })
 export class RegisterFormComponent {
   private readonly registerApi = inject(RegisterApi);
+  private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
 
   readonly submitted = signal(false);
+
+  protected readonly loading = signal<boolean>(false);
 
   protected readonly model = signal<RegisterFormModel>({
     name: '',
@@ -62,9 +73,22 @@ export class RegisterFormComponent {
       },
       action: async (field) => {
         const { confirmPassword, ...payload } = field().value();
-
-        const response: UserRegisterResponseModel = await firstValueFrom(this.registerApi.register(payload));
-
+        
+        this.loading.set(true);
+        
+        try {
+          await firstValueFrom(this.registerApi.register(payload));
+          
+          this.messageService.add({severity: 'success', summary: 'Успех', detail: 'Регистрация прошла успешно'})
+          
+          this.router.navigateByUrl('/login');
+        } catch (e) {
+          this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'При регистрации произошла ошибка'})
+          
+        } finally {
+          this.loading.set(false);
+        }
+        
         return;
       },
     });

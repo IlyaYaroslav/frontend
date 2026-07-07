@@ -1,9 +1,19 @@
-import { LucideEye, LucideEyeOff, LucideMoon, LucideSun, LucideUserRound } from '@lucide/angular';
+import {
+  LucideEye,
+  LucideEyeOff,
+  LucideLoader,
+  LucideMoon,
+  LucideSun,
+  LucideUserRound,
+  LucideX,
+} from '@lucide/angular';
 
 export const iconRegistry = {
   moon: LucideMoon,
   sun: LucideSun,
   user: LucideUserRound,
   show: LucideEye,
-  hide: LucideEyeOff
+  hide: LucideEyeOff,
+  close: LucideX,
+  loader: LucideLoader
 } as const;
