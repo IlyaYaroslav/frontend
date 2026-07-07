@@ -1,7 +1,14 @@
-<p-toast position="top-right"/>
+<p-toast position="top-right" />
 
-<app-header />
+<app-header (sidebarOpen)="openSidebar()" />
 
 <main class="app-main">
   <router-outlet />
 </main>
+
+@if (isAuthenticated()) {
+  <app-sidebar
+    [visible]="sidebarVisible()"
+    (visibleChange)="setSidebarVisible($event)"
+  />
+}

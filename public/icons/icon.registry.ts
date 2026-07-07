@@ -1,8 +1,11 @@
 import {
   LucideEye,
   LucideEyeOff,
+  LucideFolderOpen,
   LucideLoader,
+  LucideMenu,
   LucideMoon,
+  LucideSquareCheckBig,
   LucideSun,
   LucideUserRound,
   LucideX,
@@ -15,5 +18,9 @@ export const iconRegistry = {
   show: LucideEye,
   hide: LucideEyeOff,
   close: LucideX,
-  loader: LucideLoader
+  loader: LucideLoader,
+  menu: LucideMenu,
+  'folder-open': LucideFolderOpen,
+  'check-square': LucideSquareCheckBig
+  
 } as const;

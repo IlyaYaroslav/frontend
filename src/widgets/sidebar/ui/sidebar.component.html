@@ -1,0 +1,48 @@
+<div class="flex justify-center">
+  <p-drawer
+    #sidebarRef
+    [pt]="sidebarPt"
+    [visible]="visible()"
+    (visibleChange)="onVisibleChange($event)"
+  >
+    <ng-template #headless>
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between px-5 pt-3 shrink-0">
+
+          <a routerLink="/" class="inline-flex items-center gap-2">
+            <span class="uppercase font-semibold text-2xl">Task Space</span>
+          </a>
+
+          <div>
+            <button
+              type="button"
+              pButton
+              (click)="closeCallback($event)"
+              rounded="true"
+              outlined="true"
+              class="h-8 w-8">
+              <app-icon [name]="'close'" [size]="16" />
+            </button>
+          </div>
+        </div>
+          
+        <p-divider/>
+        
+        <nav class="sidebar-nav">
+          @for (item of menuItems; track item.route) {
+            <a
+              class="sidebar-nav__link"
+              [routerLink]="item.route"
+              routerLinkActive="sidebar-nav__link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeByNavigation()"
+              >
+            <app-icon [name]="item.icon" [size]="18" />
+            <span>{{ item.label }}</span>
+            </a>
+          }
+        </nav>
+      </div>
+    </ng-template>
+  </p-drawer>
+</div>

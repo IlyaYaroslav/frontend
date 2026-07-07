@@ -1,0 +1,12 @@
+@use "styles/backgrounds" as *;
+
+:host {
+  @include liquidGlass;
+  
+  margin: 10px;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  border-radius: 30px;
+  padding: 20px;
+}

@@ -1,19 +1,33 @@
-<header class="header ">
-  <div class="container">
-    <div class="header__inner">
+<p-toolbar
+  [pt]="headerPt"
+  [style]="headerStyle">
+  <ng-template #start>
+    <a routerLink="/" class="brand">
+      <img ngSrc="/images/logo/logo.svg" alt="Логотип компании" width="40" height="40">
+      <span class="uppercase brand__title">Task Space</span>
+    </a>
+  </ng-template>
+  <ng-template
+    #end>
+    <app-theme-toggle />
 
-      <a routerLink="/" class="header__brand">
-        <img ngSrc="/images/logo/logo.svg" alt="Логотип компании" width="40" height="40">
-        <span class="uppercase header__brand-title">Task Space</span>
-      </a>
-      
-      <div class="header__user">
-        <app-theme-toggle />
+    @if (isAuthenticated()) {
+      <p-avatar
+        shape="circle" 
+        size="large" 
+        label="IS"/>
 
-<!--        <button class="header__user-icon" routerLink="/user">-->
-<!--          <app-icon [name]="'user'" [size]="25" />-->
-<!--        </button>-->
-      </div>
-    </div>
-  </div>
-</header>
+      <button
+        type="button"
+        pButton
+        rounded
+        size="large"
+        severity="contrast"
+        (click)="openSidebar()"
+        aria-label="Открыть меню"
+        title="Открыть меню">
+        <app-icon [name]="'menu'" [size]="16" />
+      </button>
+    }
+  </ng-template>
+</p-toolbar>

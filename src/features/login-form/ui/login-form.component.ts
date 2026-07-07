@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { email, form, required, submit } from '@angular/forms/signals';
+import { Router } from '@angular/router';
 import { SessionActions } from '@entities/session';
 import { LoginApi } from '@features/login-form/api/login.api';
 import { UserLoginResponseModel } from '@features/login-form/api/login.contracts';
@@ -25,6 +26,7 @@ export class LoginFormComponent {
   private readonly loginApi = inject(LoginApi);
   private readonly store = inject(Store);
   private readonly messageService = inject(MessageService);
+  private readonly router = inject(Router);
 
   readonly submitted = signal(false);
 
@@ -61,6 +63,8 @@ export class LoginFormComponent {
           const { accessToken }: UserLoginResponseModel = await firstValueFrom(this.loginApi.login(payload));
 
           this.store.dispatch(SessionActions.loginSuccess({accessToken}));
+          
+          this.router.navigateByUrl('/tasks');
           
           this.messageService.add({severity: 'success', summary: 'Успех', detail: 'Вы успешно вошли в аккаунт'});
           
