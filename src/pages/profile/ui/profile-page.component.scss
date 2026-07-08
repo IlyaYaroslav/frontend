@@ -1,0 +1,15 @@
+@use "styles/backgrounds" as *;
+
+:host {
+  @include liquidGlass;
+
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.profile-avatar {
+  margin-top: 20px;
+}

@@ -1,1 +1,1 @@
-export * from './ui/projects.component';
+export * from 'src/pages/projects/ui/projects-page.component';

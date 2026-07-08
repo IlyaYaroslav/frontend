@@ -1,8 +1,12 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { SessionActions } from './session.actions';
-import { SessionState } from './session.types';
 
 export const sessionFeatureKey = 'session';
+
+export interface SessionState {
+  accessToken: string | null;
+  isAuthenticated: boolean;
+}
 
 const initialState: SessionState = {
   accessToken: null,

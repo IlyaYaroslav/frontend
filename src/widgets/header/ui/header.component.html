@@ -12,9 +12,9 @@
     <app-theme-toggle />
 
     @if (isAuthenticated()) {
-      <p-overlay-badge 
-        value="2" 
-        badgeSize="small" 
+      <p-overlay-badge
+        value="2"
+        badgeSize="small"
         severity="success">
         <p-avatar
           shape="circle"
@@ -23,9 +23,9 @@
           'cursor': 'pointer'
         }"
           (click)="userSettings.toggle($event)"
-          [label]="userInitial()"/>
+          [label]="userLabel() ?? ''" />
       </p-overlay-badge>
-      
+
       <p-menu #userSettings [model]="items" [popup]="true" />
 
       <button

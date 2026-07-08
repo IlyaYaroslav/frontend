@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, output, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IconComponent } from '@shared/ui/icon';
-import { SidebarMenuItem } from '@widgets/sidebar/model/sidebar.model';
 import { ButtonDirective } from 'primeng/button';
 import { Divider } from 'primeng/divider';
 import { Drawer, DrawerPassThrough } from 'primeng/drawer';
+import { SidebarMenuItem } from '../model/sidebar.model';
 
 @Component({
   selector: 'app-sidebar',

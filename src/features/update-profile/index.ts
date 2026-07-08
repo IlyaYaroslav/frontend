@@ -1,0 +1,1 @@
+export * from './ui/update-profile-form.component';

@@ -1,1 +1,1 @@
-export * from './ui/tasks.component';
+export * from 'src/pages/tasks/ui/tasks-page.component';

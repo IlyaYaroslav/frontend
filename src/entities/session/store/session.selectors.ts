@@ -22,7 +22,7 @@ export const selectAccessTokenPayload = createSelector(
   (accessToken) => accessToken ? decodeAccessToken(accessToken) : null,
 );
 
-export const selectUserInitial = createSelector(
+export const selectUserId = createSelector(
   selectAccessTokenPayload,
-  (payload) => Array.from(payload?.name ?? '')[0]?.toUpperCase() ?? null,
+  (payload) => payload?.sub ?? null,
 );

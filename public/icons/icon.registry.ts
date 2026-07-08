@@ -5,8 +5,10 @@ import {
   LucideLoader,
   LucideMenu,
   LucideMoon,
+  LucidePen,
   LucideSquareCheckBig,
   LucideSun,
+  LucideTrash2,
   LucideUserRound,
   LucideX,
 } from '@lucide/angular';
@@ -21,6 +23,8 @@ export const iconRegistry = {
   loader: LucideLoader,
   menu: LucideMenu,
   'folder-open': LucideFolderOpen,
-  'check-square': LucideSquareCheckBig
+  'check-square': LucideSquareCheckBig,
+  pen: LucidePen,
+  trash: LucideTrash2
   
 } as const;

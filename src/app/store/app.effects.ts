@@ -1,6 +1,9 @@
 import { inject, Injectable } from '@angular/core';
+import { SessionActions } from '@entities/session';
+import { UserActions } from '@entities/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { decodeAccessToken } from '@shared/helpers/decode-access-token';
 import { map, tap, withLatestFrom } from 'rxjs';
 import { AppActions } from './app.actions';
 import { ThemeMode } from './app.model';
@@ -38,5 +41,20 @@ export class AppEffects {
         }),
       ),
     { dispatch: false },
+  );
+
+  readonly loadCurrentUserAfterAuth$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SessionActions.loginSuccess, SessionActions.tokenLoaded),
+      map(({ accessToken }) => accessToken ? decodeAccessToken(accessToken) : null),
+      map((payload) => payload?.sub ? UserActions.loadCurrentUser({ userId: payload.sub }) : UserActions.clearCurrentUser()),
+    ),
+  );
+
+  readonly clearCurrentUserAfterLogout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SessionActions.logout),
+      map(() => UserActions.clearCurrentUser()),
+    ),
   );
 }

@@ -1,10 +1,13 @@
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { AppEffects, appFeature } from '@app/store';
 import { AuthInterceptor, SessionEffects, sessionFeature } from '@entities/session';
+import { userFeature } from '@entities/user';
+import { UserEffects } from '@entities/user/store/user.effects';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import { API_BASE_URL, USER_API_URL } from '@shared/api/api.tokens';
@@ -20,8 +23,15 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       [appFeature.name]: appFeature.reducer,
       [sessionFeature.name]: sessionFeature.reducer,
+      [userFeature.name]: userFeature.reducer,
     }),
-    provideEffects(AppEffects, SessionEffects),
+    provideStoreDevtools({
+      name: 'Task Space',
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true
+    }),
+    provideEffects(AppEffects, SessionEffects, UserEffects),
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
@@ -62,6 +72,6 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    MessageService 
+    MessageService,
   ],
 };

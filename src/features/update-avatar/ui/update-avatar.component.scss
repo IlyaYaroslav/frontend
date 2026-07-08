@@ -1,0 +1,40 @@
+@use "styles/mixins" as *;
+
+.avatar {
+  @include flexCenterCenter;
+  
+  font-size: 70px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: var(--p-avatar-background);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    .avatar__actions {
+      top: 0;
+      opacity: 1;
+      pointer-events: auto;
+      cursor: default;
+    }
+  }
+  
+  &__actions {
+    @include flexCenterCenter;
+    
+    gap: 20px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    pointer-events: none;
+    z-index: 1;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    backdrop-filter: blur(3.5px);
+    color: white;
+  }
+}
