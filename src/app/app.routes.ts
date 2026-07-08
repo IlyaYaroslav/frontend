@@ -19,10 +19,15 @@ export const routes: Routes = [
     loadComponent: () => import('@pages/auth').then((m) => m.AuthPageComponent),
     data: { mode: 'register' },
   },
-  
+
   {
     path: 'tasks',
     canActivate: [authGuard],
     loadComponent: () => import('@pages/tasks').then((m) => m.TasksComponent),
+  },
+  {
+    path: 'projects',
+    canActivate: [authGuard],
+    loadComponent: () => import('@pages/projects').then((m) => m.ProjectsComponent),
   },
 ];

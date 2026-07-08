@@ -3,6 +3,7 @@
   [ngModel]="isDarkTheme()"
   (ngModelChange)="toggleTheme()"
   ariaLabel="Переключить тему"
+  [title]="isDarkTheme() ? 'Включить светлую тему' : 'Включить темную тему'"
   [pt]="togglePt"
 >
   <ng-template #handle let-checked="checked">

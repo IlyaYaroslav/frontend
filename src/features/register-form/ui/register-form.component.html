@@ -7,12 +7,13 @@
       [field]="registerForm.name"
       [clear]="true"
       [submitted]="submitted()" />
-    
+
     <app-input-string
       [id]="'register-email'"
       [label]="'E-mail'"
       [autocomplete]="'email'"
       [field]="registerForm.email"
+      [clear]="true"
       [submitted]="submitted()" />
 
     <app-input-string
@@ -38,10 +39,11 @@
       pButton
       raised
       severity="contrast"
-      title="Зарегистрироваться" 
-      [loading]="loading()">
+      title="Зарегистрироваться"
+      [disabled]="loading()">
       @if (loading()) {
-        Регистрация... <app-icon [name]="'loader'" class="animate-spin"/>
+        Регистрация...
+        <app-icon [name]="'loader'" class="animate-spin" />
       } @else {
         Зарегистрироваться
       }

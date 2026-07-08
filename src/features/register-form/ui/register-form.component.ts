@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals';
 import { Router } from '@angular/router';
@@ -72,23 +73,47 @@ export class RegisterFormComponent {
         field().focusBoundControl();
       },
       action: async (field) => {
-        const { confirmPassword, ...payload } = field().value();
-        
+        const { confirmPassword, name, password, email } = field().value();
+
         this.loading.set(true);
-        
+
+        const normalizedPayload = {
+          name: name.trim(),
+          password,
+          email,
+        };
+
         try {
-          await firstValueFrom(this.registerApi.register(payload));
-          
-          this.messageService.add({severity: 'success', summary: 'Успех', detail: 'Регистрация прошла успешно'})
-          
-          this.router.navigateByUrl('/login');
-        } catch (e) {
-          this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'При регистрации произошла ошибка'})
-          
+          await firstValueFrom(this.registerApi.register(normalizedPayload));
+
+          this.messageService.add({ severity: 'success', summary: 'Успех', detail: 'Регистрация прошла успешно' });
+
+          void this.router.navigateByUrl('/login');
+        } catch (error: unknown) {
+          if (error as HttpErrorResponse) {
+            switch ((error as HttpErrorResponse).status) {
+              case (409):
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Ошибка',
+                  detail: 'Пользователь с данной почтой уже зарегистрирован',
+                });
+                break;
+
+              default:
+                break;
+            }
+
+            return;
+          }
+
+
+          this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: 'При регистрации произошла ошибка' });
+
         } finally {
           this.loading.set(false);
         }
-        
+
         return;
       },
     });

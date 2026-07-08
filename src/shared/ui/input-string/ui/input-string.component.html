@@ -16,7 +16,13 @@
       />
 
       @if (value() && clear()) {
-        <p-inputicon (click)="clearValue()" style="cursor: pointer">
+        <p-inputicon
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Удалить текст'"
+          title="Удалить текст"
+          (click)="clearValue()" 
+          style="cursor: pointer">
           <app-icon name="close" [size]="16" />
         </p-inputicon>
       }
@@ -31,7 +37,7 @@
         [pSize]="size()"
         [class.p-invalid]="showError()"
         [id]="id()"
-        [type]="type()"
+        [type]="passwordInputType()"
         [formField]="field()"
         [autocomplete]="autocomplete()"
         [attr.aria-invalid]="showError()"
@@ -39,10 +45,16 @@
       />
 
       <p-inputicon
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="mask() ? 'Показать пароль' : 'Скрыть пароль'"
+        [title]="mask() ? 'Показать пароль' : 'Скрыть пароль'"
         (click)="toggleMask()"
+        (keydown.enter)="toggleMask()"
+        (keydown.space)="toggleMask()"
         style="cursor: pointer"
       >
-        <app-icon [name]="mask ? 'show' : 'hide'" [size]="16" />
+        <app-icon [name]="mask() ? 'show' : 'hide'" [size]="16" />
       </p-inputicon>
     </p-iconfield>
   }

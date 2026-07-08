@@ -23,9 +23,10 @@
       pButton
       raised
       severity="contrast"
-      >
+      [disabled]="loading()">
       @if (loading()) {
-        Вход... <app-icon [name]="'loader'" class="animate-spin"/>
+        Вход...
+        <app-icon [name]="'loader'" class="animate-spin" />
       } @else {
         Войти
       }

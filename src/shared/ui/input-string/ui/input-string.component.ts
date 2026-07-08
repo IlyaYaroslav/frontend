@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FieldTree, FormField } from '@angular/forms/signals';
 import { IconComponent } from '@shared/ui/icon';
@@ -51,13 +51,15 @@ export class InputStringComponent {
     return error?.message ?? 'Поле заполнено некорректно';
   })
   
-  protected mask: boolean = true;
+  protected mask = signal<boolean>(true);
   
   protected clearValue(): void {
     this.fieldState().value.set('');
   }
+  
+  protected passwordInputType = computed(()=> this.mask() ? 'password' : 'text');
 
   protected toggleMask(): void {
-    this.mask = !this.mask;
+    this.mask.update((value)=> !value);
   }
 }

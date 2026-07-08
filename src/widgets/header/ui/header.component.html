@@ -12,15 +12,26 @@
     <app-theme-toggle />
 
     @if (isAuthenticated()) {
-      <p-avatar
-        shape="circle" 
-        size="large" 
-        label="IS"/>
+      <p-overlay-badge 
+        value="2" 
+        badgeSize="small" 
+        severity="success">
+        <p-avatar
+          shape="circle"
+          size="large"
+          [style]="{
+          'cursor': 'pointer'
+        }"
+          (click)="userSettings.toggle($event)"
+          [label]="userInitial()"/>
+      </p-overlay-badge>
+      
+      <p-menu #userSettings [model]="items" [popup]="true" />
 
       <button
         type="button"
+        class="sidebar-open"
         pButton
-        rounded
         size="large"
         severity="contrast"
         (click)="openSidebar()"

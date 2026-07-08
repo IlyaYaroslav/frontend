@@ -64,7 +64,7 @@ export class LoginFormComponent {
 
           this.store.dispatch(SessionActions.loginSuccess({accessToken}));
           
-          this.router.navigateByUrl('/tasks');
+          void this.router.navigateByUrl('/tasks');
           
           this.messageService.add({severity: 'success', summary: 'Успех', detail: 'Вы успешно вошли в аккаунт'});
           

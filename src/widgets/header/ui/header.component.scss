@@ -1,10 +1,6 @@
 @use "styles/mixins" as *;
 @use "styles/backgrounds" as *;
 
-:host {
-  padding: 10px;
-}
-
 
 .brand {
   @include flexAlignCenter;
@@ -19,4 +15,10 @@
 
 .p-toolbar-end {
   gap: 20px;
+}
+
+.sidebar-open {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 }

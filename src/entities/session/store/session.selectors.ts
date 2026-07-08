@@ -1,4 +1,5 @@
 import { createSelector } from '@ngrx/store';
+import { decodeAccessToken } from '@shared/helpers/decode-access-token';
 import { sessionFeature } from './session.reducer';
 
 export const {
@@ -16,3 +17,12 @@ export const selectAuthorizationHeader = createSelector(
   (accessToken) => accessToken ? `Bearer ${ accessToken }` : null,
 );
 
+export const selectAccessTokenPayload = createSelector(
+  selectAccessToken,
+  (accessToken) => accessToken ? decodeAccessToken(accessToken) : null,
+);
+
+export const selectUserInitial = createSelector(
+  selectAccessTokenPayload,
+  (payload) => Array.from(payload?.name ?? '')[0]?.toUpperCase() ?? null,
+);
