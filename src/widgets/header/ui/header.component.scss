@@ -2,6 +2,13 @@
 @use "styles/backgrounds" as *;
 
 
+:host {
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
 .brand {
   @include flexAlignCenter;
 
