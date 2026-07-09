@@ -1,6 +1,18 @@
-<p-floatlabel variant="on">
+@if (floatLabel()) {
+  <p-floatlabel variant="on">
+    <ng-container [ngTemplateOutlet]="control"></ng-container>
+    <label [for]="id()">{{ label() }}</label>
+  </p-floatlabel>
+} @else {
+  @if (label()) {
+    <label [for]="id()" class="input-label">{{ label() }}</label>
+  }
+  
+  <ng-container [ngTemplateOutlet]="control"></ng-container>
+}
 
-  @if (type() === 'text') {
+<ng-template #control>
+  @if (type() === 'text' || type() === 'email') {
     <p-iconfield>
       <input
         pInputText
@@ -10,7 +22,8 @@
         [id]="id()"
         [type]="type()"
         [formField]="field()"
-        [autocomplete]="'off'"
+        [autocomplete]="autocomplete()"
+        [placeholder]="placeholder()"
         [attr.aria-invalid]="showError()"
         [attr.aria-describedby]="showError() ? id() + '-error' : null"
       />
@@ -21,7 +34,7 @@
           tabindex="0"
           [attr.aria-label]="'Удалить текст'"
           title="Удалить текст"
-          (click)="clearValue()" 
+          (click)="clearValue()"
           style="cursor: pointer">
           <app-icon name="close" [size]="16" />
         </p-inputicon>
@@ -40,6 +53,7 @@
         [type]="passwordInputType()"
         [formField]="field()"
         [autocomplete]="autocomplete()"
+        [placeholder]="placeholder()"
         [attr.aria-invalid]="showError()"
         [attr.aria-describedby]="showError() ? id() + '-error' : null"
       />
@@ -59,9 +73,7 @@
     </p-iconfield>
   }
 
-
-  <label [for]="id()">{{ label() }}</label>
-</p-floatlabel>
+</ng-template>
 
 @if (showError()) {
   <p-message

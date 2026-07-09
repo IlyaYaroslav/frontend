@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FieldTree, FormField } from '@angular/forms/signals';
@@ -21,6 +22,7 @@ import { Message } from 'primeng/message';
     IconFieldModule,
     IconComponent,
     Message,
+    NgTemplateOutlet,
   ],
   templateUrl: './input-string.component.html',
   styleUrl: './input-string.component.scss',
@@ -32,10 +34,13 @@ export class InputStringComponent {
   readonly id = input.required<string>();
   readonly label = input<string>();
   readonly type = input<'text' | 'email' | 'password'>('text');
-  readonly autocomplete = input<string>('');
+  readonly autocomplete = input<string>('off');
   readonly submitted = input<boolean>(false);
   readonly clear = input<boolean>(false);
   readonly size = input<'small' | 'large' | undefined>('small');
+  readonly placeholder = input<string>('');
+  readonly floatLabel = input<boolean>(true);
+  readonly disabled = input<boolean>(false);
   
   protected readonly value = computed(()=> this.fieldState().value());
   

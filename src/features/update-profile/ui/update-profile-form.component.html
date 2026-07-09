@@ -1,1 +1,49 @@
-
+<form class="update-profile-form">
+  <fieldset class="form-inputs">
+    <p>Имя:</p>
+    <app-input-string
+      [id]="'first-name'"
+      [floatLabel]="false"
+      [clear]="true"
+      [placeholder]="'Имя'"
+      [autocomplete]="'username'"
+      [field]="updateProfileForm.firstName"
+    />
+    
+    <p>Фамилия:</p>
+    <app-input-string
+      [id]="'last-name'"
+      [floatLabel]="false"
+      [clear]="true"
+      [placeholder]="'Фамилия'"
+      [autocomplete]="'family-name'"
+      [field]="updateProfileForm.lastName"
+    />
+    
+    <p>E-mail:</p>
+    <p>ilya4mail.ru</p>
+    
+    <p>Роль:</p>
+    <p>Пользователь</p>
+  </fieldset>
+  <fieldset class="form-actions">
+    <button 
+      type="submit"
+      class="submit-btn form-btn"
+      pButton
+      raised
+      severity="contrast"
+      title="Сохранить изменения"
+    >
+      Сохранить изменения
+    </button>
+    <button
+      type="reset"
+      class="reset-btn form-btn"
+      pButton
+      raised
+      severity="danger"
+      title="Отменить изменения"
+    >Сбросить изменения</button>
+  </fieldset>
+</form>
