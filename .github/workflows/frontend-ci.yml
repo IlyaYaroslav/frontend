@@ -68,25 +68,60 @@ jobs:
           tags: frontend:${{ github.sha }}
 
   deploy:
-    runs-on: self-hosted
+    name: Deploy to production
+    runs-on: ubuntu-latest
     needs: docker
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    environment: production
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_PORT: ${{ secrets.SSH_PORT }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Check Docker on runner
+      - name: Configure SSH
         shell: bash
         run: |
-          if ! command -v docker >/dev/null 2>&1; then
-            echo "::error::Docker is not installed or is not available in PATH on this self-hosted runner."
-            echo "Install Docker Engine and the Docker Compose plugin on the server that runs this GitHub runner."
-            exit 1
-          fi
+          set -euo pipefail
+          : "${SSH_HOST:?SSH_HOST secret is required}"
+          : "${SSH_USER:?SSH_USER secret is required}"
+          : "${SSH_PRIVATE_KEY:?SSH_PRIVATE_KEY secret is required}"
+          : "${DEPLOY_PATH:?DEPLOY_PATH secret is required}"
+          SSH_PORT="${SSH_PORT:-22}"
+          echo "SSH_PORT=$SSH_PORT" >> "$GITHUB_ENV"
 
-          docker version
-          docker compose version
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
 
-      - name: Deploy frontend with Docker Compose
-        run: docker compose up -d --build --remove-orphans frontend
+      - name: Upload application
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar \
+            --exclude=.git \
+            --exclude=.github \
+            --exclude=node_modules \
+            -czf "$RUNNER_TEMP/frontend.tar.gz" .
+
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "mkdir -p '$DEPLOY_PATH'"
+          scp -P "$SSH_PORT" "$RUNNER_TEMP/frontend.tar.gz" "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/frontend.tar.gz"
+
+      - name: Deploy with Docker Compose
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "
+            set -e
+            cd '$DEPLOY_PATH'
+            tar -xzf frontend.tar.gz
+            rm frontend.tar.gz
+            docker compose up -d --build --remove-orphans frontend
+          "
