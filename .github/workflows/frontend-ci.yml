@@ -74,11 +74,11 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     environment: production
     env:
-      SSH_HOST: ${{ secrets.SSH_HOST }}
-      SSH_USER: ${{ secrets.SSH_USER }}
-      SSH_PORT: ${{ secrets.SSH_PORT }}
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      SSH_HOST: ${{ secrets.VPS_HOST }}
+      SSH_USER: ${{ secrets.VPS_USER }}
+      SSH_PORT: ${{ secrets.VPS_PORT }}
+      SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+      DEPLOY_PATH: frontend
 
     steps:
       - name: Checkout
