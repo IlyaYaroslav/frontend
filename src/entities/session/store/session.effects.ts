@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -44,7 +45,7 @@ export class SessionEffects {
 
   readonly persistToken$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SessionActions.loginSuccess),
+      ofType(SessionActions.loginSuccess, SessionActions.registerSuccess),
       tap(({ accessToken }) => saveToken(accessToken)),
     ), { dispatch: false },
   );
@@ -100,6 +101,59 @@ export class SessionEffects {
           severity: 'error',
           summary: 'Ошибка',
           detail: 'При входе произошла ошибка',
+        });
+      }),
+    ), { dispatch: false },
+  );
+
+
+  readonly register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SessionActions.register),
+      switchMap(({ payload }) =>
+        this.sessionApi.register(payload).pipe(
+          map(({ token }) => {
+            if (!isAccessTokenValid(token)) {
+              return SessionActions.registerFailure({
+                error: new Error('Сервер вернул некорректный или просроченный access token'),
+              });
+            }
+
+            return SessionActions.registerSuccess({ accessToken: token });
+          }),
+          catchError((error: unknown) => of(SessionActions.registerFailure({ error }))),
+        ),
+      ),
+    ),
+  );
+
+  readonly registerSuccessSideEffects$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SessionActions.registerSuccess),
+      tap(() => {
+        this.messagesService.add({
+          severity: 'success',
+          summary: 'Успех',
+          detail: 'Аккаунт успешно создан',
+        });
+
+        void this.router.navigateByUrl('/tasks');
+      }),
+    ), { dispatch: false },
+  );
+
+  readonly registerFailureSideEffects = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SessionActions.registerFailure),
+      tap(({ error }) => {
+        const detail = error instanceof HttpErrorResponse && error.status === 409
+          ? 'Пользователь с данной почтой уже зарегистрирован'
+          : 'При регистрации произошла ошибка';
+
+        this.messagesService.add({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail,
         });
       }),
     ), { dispatch: false },

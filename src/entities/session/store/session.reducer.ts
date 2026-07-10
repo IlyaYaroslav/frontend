@@ -9,6 +9,8 @@ export interface SessionState {
   isAuthenticated: boolean;
   loginLoading: boolean;
   loginError: unknown | null;
+  registerLoading: boolean;
+  registerError: unknown | null;
 }
 
 const initialState: SessionState = {
@@ -16,6 +18,8 @@ const initialState: SessionState = {
   isAuthenticated: false,
   loginLoading: false,
   loginError: null,
+  registerLoading: false,
+  registerError: null,
 };
 
 export const sessionFeature = createFeature({
@@ -53,6 +57,30 @@ export const sessionFeature = createFeature({
       isAuthenticated: false,
       loginLoading: false,
       loginError: error,
+    })),
+
+    on(SessionActions.register, (state) => ({
+      ...state,
+      registerLoading: true,
+      registerError: null,
+    })),
+
+    on(SessionActions.registerSuccess, (state, { accessToken }) => {
+      const isAuthenticated: boolean = isAccessTokenValid(accessToken);
+
+      return {
+        ...state,
+        accessToken: isAuthenticated ? accessToken : null,
+        isAuthenticated,
+        registerLoading: false,
+        registerError: null,
+      };
+    }),
+
+    on(SessionActions.registerFailure, (state, { error }) => ({
+      ...state,
+      registerLoading: false,
+      registerError: error,
     })),
 
     on(SessionActions.logout, () => initialState),

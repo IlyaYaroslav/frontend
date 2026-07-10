@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { form, minLength, pattern, required } from '@angular/forms/signals';
 import { UserApi } from '@entities/user';
 import type { UpdateProfileFormModel } from '@features/update-profile/model/update-profile-form.model';
@@ -15,6 +15,7 @@ import { ButtonDirective } from 'primeng/button';
   ],
   templateUrl: './update-profile-form.component.html',
   styleUrl: './update-profile-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdateProfileFormComponent {
   private readonly userApi = inject(UserApi);

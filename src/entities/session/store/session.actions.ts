@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import type { LoginRequest } from '../model/session.model';
+import type { LoginRequestModel, RegisterRequestModel } from '../model/session.model';
 
 export const SessionActions = createActionGroup({
   source: 'Session',
@@ -8,10 +8,14 @@ export const SessionActions = createActionGroup({
 
     'Token Loaded': props<{ accessToken: string | null }>(),
 
-    Login: props<{ payload: LoginRequest }>(),
+    Login: props<{ payload: LoginRequestModel }>(),
     'Login Success': props<{ accessToken: string }>(),
     'Login Failure': props<{ error: unknown }>(),
-    
+
+    Register: props<{ payload: RegisterRequestModel }>(),
+    'Register Success': props<{ accessToken: string }>(),
+    'Register Failure': props<{ error: unknown }>(),
+
     Logout: emptyProps(),
   },
 });

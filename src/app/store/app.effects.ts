@@ -45,7 +45,7 @@ export class AppEffects {
 
   readonly loadCurrentUserAfterAuth$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SessionActions.loginSuccess, SessionActions.tokenLoaded),
+      ofType(SessionActions.loginSuccess, SessionActions.registerSuccess, SessionActions.tokenLoaded),
       map(({ accessToken }) => accessToken ? decodeAccessToken(accessToken) : null),
       map((payload) => payload?.sub ? UserActions.loadCurrentUser({ userId: payload.sub }) : UserActions.clearCurrentUser()),
     ),

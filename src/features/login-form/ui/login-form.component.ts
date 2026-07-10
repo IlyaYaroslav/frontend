@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { email, form, required, submit } from '@angular/forms/signals';
 import { selectLoginLoading, SessionActions } from '@entities/session';
-import { LoginFormModel } from '@features/login-form/model/login-form.model';
 import { Store } from '@ngrx/store';
 import { IconComponent } from '@shared/ui/icon';
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
 import { ButtonDirective } from 'primeng/button';
+import type { LoginFormModel } from '../model/login-form.model';
 
 @Component({
   selector: 'app-login-form',
@@ -23,7 +23,7 @@ export class LoginFormComponent {
   readonly submitted = signal(false);
 
   protected readonly loading = this.store.selectSignal(selectLoginLoading);
-
+  
   protected readonly model = signal<LoginFormModel>({
     email: '',
     password: '',

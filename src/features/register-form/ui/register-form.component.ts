@@ -1,15 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { email, form, minLength, pattern, required, submit, validate } from '@angular/forms/signals';
-import { Router } from '@angular/router';
-import { RegisterApi } from '@features/register-form';
+import { selectRegisterLoading, SessionActions } from '@entities/session';
+import { Store } from '@ngrx/store';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@shared/regex';
 import { IconComponent } from '@shared/ui/icon';
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
-import { MessageService } from 'primeng/api';
 import { ButtonDirective, ButtonModule } from 'primeng/button';
-import { firstValueFrom } from 'rxjs';
-import { RegisterFormModel } from '../model/register-form.model';
+import type { RegisterFormModel } from '../model/register-form.model';
 
 @Component({
   selector: 'app-register-form',
@@ -24,13 +21,11 @@ import { RegisterFormModel } from '../model/register-form.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent {
-  private readonly registerApi = inject(RegisterApi);
-  private readonly router = inject(Router);
-  private readonly messageService = inject(MessageService);
+  private readonly store = inject(Store);
 
   readonly submitted = signal(false);
 
-  protected readonly loading = signal<boolean>(false);
+  protected readonly loading = this.store.selectSignal(selectRegisterLoading);
 
   protected readonly model = signal<RegisterFormModel>({
     name: '',
@@ -73,48 +68,15 @@ export class RegisterFormComponent {
         field().focusBoundControl();
       },
       action: async (field) => {
-        const { confirmPassword, name, password, email } = field().value();
+        const { name, password, email } = field().value();
 
-        this.loading.set(true);
-
-        const normalizedPayload = {
-          name: name.trim(),
-          password,
-          email,
-        };
-
-        try {
-          await firstValueFrom(this.registerApi.register(normalizedPayload));
-
-          this.messageService.add({ severity: 'success', summary: 'Успех', detail: 'Регистрация прошла успешно' });
-
-          void this.router.navigateByUrl('/login');
-        } catch (error: unknown) {
-          if (error as HttpErrorResponse) {
-            switch ((error as HttpErrorResponse).status) {
-              case (409):
-                this.messageService.add({
-                  severity: 'error',
-                  summary: 'Ошибка',
-                  detail: 'Пользователь с данной почтой уже зарегистрирован',
-                });
-                break;
-
-              default:
-                break;
-            }
-
-            return;
-          }
-
-
-          this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: 'При регистрации произошла ошибка' });
-
-        } finally {
-          this.loading.set(false);
-        }
-
-        return;
+        this.store.dispatch(SessionActions.register({
+          payload: {
+            name: name.trim(),
+            email,
+            password,
+          },
+        }));
       },
     });
   }

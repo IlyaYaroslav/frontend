@@ -32,7 +32,7 @@ export const selectLoginLoading = createSelector(
   (state) => state.loginLoading,
 );
 
-export const selectLoginError = createSelector(
+export const selectRegisterLoading = createSelector(
   selectSessionState,
-  (state) => state.loginError,
+  (state) => state.registerLoading,
 );

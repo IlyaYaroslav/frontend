@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IconComponent } from '@shared/ui/icon';
 import { Button } from 'primeng/button';
 
@@ -10,6 +10,7 @@ import { Button } from 'primeng/button';
   ],
   templateUrl: './update-avatar.component.html',
   styleUrl: './update-avatar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdateAvatarComponent {
   protected avatarActionStyle = {
