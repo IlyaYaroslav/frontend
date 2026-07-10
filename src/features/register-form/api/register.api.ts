@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { USER_API_URL } from '@shared/api/api.tokens';
+import { AUTH_API_URL } from '@shared/api/api.tokens';
 import { Observable } from 'rxjs';
 import { UserRegisterRequestModel, UserRegisterResponseModel } from './register.contracts';
 
@@ -8,11 +8,11 @@ import { UserRegisterRequestModel, UserRegisterResponseModel } from './register.
   providedIn: 'root',
 })
 export class RegisterApi {
-  private readonly USER_URL = inject(USER_API_URL);
+  private readonly authApiUrl = inject(AUTH_API_URL);
   private readonly http = inject(HttpClient);
   
   private get registerUrl(): string {
-    return `${this.USER_URL}/register`;
+    return `${this.authApiUrl}/register`;
   }
 
   register(payload: UserRegisterRequestModel): Observable<UserRegisterResponseModel> {

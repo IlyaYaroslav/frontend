@@ -12,6 +12,8 @@ export class UserApi {
   private readonly userApiUrl = inject(USER_API_URL);
 
   getCurrentUserInfo(userId: string): Observable<UserModel> {
-    return this.http.get<UserModel>(`${ this.userApiUrl }/${ userId }`);
+    return this.http.get<UserModel>(this.userApiUrl, {
+      params: { id: userId },
+    });
   }
 }
