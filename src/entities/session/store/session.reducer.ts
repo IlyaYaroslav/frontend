@@ -1,4 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
+import { isAccessTokenValid } from '../lib/is-access-token-valid';
 import { SessionActions } from './session.actions';
 
 export const sessionFeatureKey = 'session';
@@ -6,11 +7,15 @@ export const sessionFeatureKey = 'session';
 export interface SessionState {
   accessToken: string | null;
   isAuthenticated: boolean;
+  loginLoading: boolean;
+  loginError: unknown | null;
 }
 
 const initialState: SessionState = {
   accessToken: null,
   isAuthenticated: false,
+  loginLoading: false,
+  loginError: null,
 };
 
 export const sessionFeature = createFeature({
@@ -21,13 +26,33 @@ export const sessionFeature = createFeature({
     on(SessionActions.tokenLoaded, (state, { accessToken }) => ({
       ...state,
       accessToken,
-      isAuthenticated: Boolean(accessToken),
+      isAuthenticated: isAccessTokenValid(accessToken),
     })),
 
-    on(SessionActions.loginSuccess, (state, { accessToken }) => ({
+    on(SessionActions.login, (state) => ({
       ...state,
-      accessToken,
-      isAuthenticated: true,
+      loginLoading: true,
+      loginError: null,
+    })),
+
+    on(SessionActions.loginSuccess, (state, { accessToken }) => {
+      const isAuthenticated: boolean = isAccessTokenValid(accessToken);
+
+      return {
+        ...state,
+        accessToken: isAuthenticated ? accessToken : null,
+        isAuthenticated,
+        loginLoading: false,
+        loginError: null,
+      };
+    }),
+
+    on(SessionActions.loginFailure, (state, { error }) => ({
+      ...state,
+      accessToken: null,
+      isAuthenticated: false,
+      loginLoading: false,
+      loginError: error,
     })),
 
     on(SessionActions.logout, () => initialState),

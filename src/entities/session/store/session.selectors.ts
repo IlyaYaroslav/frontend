@@ -1,5 +1,5 @@
+import { decodeAccessToken } from '@entities/session/lib/decode-access-token';
 import { createSelector } from '@ngrx/store';
-import { decodeAccessToken } from '@shared/helpers/decode-access-token';
 import { sessionFeature } from './session.reducer';
 
 export const {
@@ -25,4 +25,14 @@ export const selectAccessTokenPayload = createSelector(
 export const selectUserId = createSelector(
   selectAccessTokenPayload,
   (payload) => payload?.sub ?? null,
+);
+
+export const selectLoginLoading = createSelector(
+  selectSessionState,
+  (state) => state.loginLoading,
+);
+
+export const selectLoginError = createSelector(
+  selectSessionState,
+  (state) => state.loginError,
 );

@@ -1,16 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { email, form, required, submit } from '@angular/forms/signals';
-import { Router } from '@angular/router';
-import { SessionActions } from '@entities/session';
-import { LoginApi } from '@features/login-form/api/login.api';
-import { UserLoginResponseModel } from '@features/login-form/api/login.contracts';
+import { selectLoginLoading, SessionActions } from '@entities/session';
 import { LoginFormModel } from '@features/login-form/model/login-form.model';
 import { Store } from '@ngrx/store';
 import { IconComponent } from '@shared/ui/icon';
 import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
-import { MessageService } from 'primeng/api';
 import { ButtonDirective } from 'primeng/button';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -23,14 +18,11 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent {
-  private readonly loginApi = inject(LoginApi);
   private readonly store = inject(Store);
-  private readonly messageService = inject(MessageService);
-  private readonly router = inject(Router);
 
   readonly submitted = signal(false);
 
-  protected readonly loading = signal<boolean>(false);
+  protected readonly loading = this.store.selectSignal(selectLoginLoading);
 
   protected readonly model = signal<LoginFormModel>({
     email: '',
@@ -54,27 +46,7 @@ export class LoginFormComponent {
         field().focusBoundControl();
       },
       action: async (field) => {
-
-        const payload = field().value();
-
-        this.loading.set(true);
-
-        try {
-          const { accessToken }: UserLoginResponseModel = await firstValueFrom(this.loginApi.login(payload));
-
-          this.store.dispatch(SessionActions.loginSuccess({accessToken}));
-          
-          void this.router.navigateByUrl('/tasks');
-          
-          this.messageService.add({severity: 'success', summary: 'Успех', detail: 'Вы успешно вошли в аккаунт'});
-          
-        } catch (e) {
-          this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'При входе произошла ошибка'})
-        } finally {
-          this.loading.set(false);
-        }
-
-        return;
+        this.store.dispatch(SessionActions.login({ payload: field().value() }));
       },
     });
   }
