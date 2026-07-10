@@ -123,5 +123,6 @@ jobs:
             cd '$DEPLOY_PATH'
             tar -xzf frontend.tar.gz
             rm frontend.tar.gz
+            docker network create taskspace-net 2>/dev/null || true
             docker compose up -d --build --remove-orphans frontend
           "
