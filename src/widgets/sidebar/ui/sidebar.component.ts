@@ -4,7 +4,7 @@ import { IconComponent } from '@shared/ui/icon';
 import { ButtonDirective } from 'primeng/button';
 import { Divider } from 'primeng/divider';
 import { Drawer, DrawerPassThrough } from 'primeng/drawer';
-import { SidebarMenuItem } from '../model/sidebar.model';
+import type { SidebarMenuItem } from '../model/sidebar.model';
 
 @Component({
   selector: 'app-sidebar',

@@ -3,10 +3,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoginFormComponent } from '@features/login-form';
 import { RegisterFormComponent } from '@features/register-form';
-import { AuthLayoutComponent } from '@widgets/auth-layout/ui/auth-layout.component';
+import { AuthLayoutComponent } from '@widgets/auth-layout';
 import { Tab, TabList, Tabs } from 'primeng/tabs';
 import { map } from 'rxjs';
-import { AuthMode } from '../model/auth.model';
+import type { AuthMode } from '../model/auth.model';
 
 @Component({
   selector: 'app-auth-page',

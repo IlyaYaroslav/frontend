@@ -1,5 +1,5 @@
-import { decodeAccessToken } from '@entities/session/lib/decode-access-token';
 import { createSelector } from '@ngrx/store';
+import { decodeAccessToken } from '../lib/decode-access-token';
 import { sessionFeature } from './session.reducer';
 
 export const {

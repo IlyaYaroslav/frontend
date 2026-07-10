@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { selectIsAuthenticated, SessionActions } from '@entities/session';
 import { selectUserLabel } from '@entities/user';
@@ -33,14 +33,14 @@ import { Toolbar, ToolbarPassThrough } from 'primeng/toolbar';
 export class HeaderComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
-
+  
+  readonly isDarkTheme = input.required<boolean>();
+  
   protected readonly isAuthenticated = this.store.selectSignal(selectIsAuthenticated);
+  protected readonly userLabel = this.store.selectSignal(selectUserLabel);
 
   readonly sidebarOpen = output<void>();
-
-  protected openSidebar(): void {
-    this.sidebarOpen.emit();
-  }
+  readonly themeToggled = output<void>();
 
   protected readonly headerPt: ToolbarPassThrough = {
     start: {
@@ -90,11 +90,16 @@ export class HeaderComponent implements OnInit {
       },
     ];
   }
-
-  protected readonly userLabel = this.store.selectSignal(selectUserLabel);
-
+  
   protected logout(): void {
     this.store.dispatch(SessionActions.logout());
-    void this.router.navigateByUrl('/login');
+  }
+
+  protected openSidebar(): void {
+    this.sidebarOpen.emit();
+  }
+  
+  protected onThemeToggled(): void {
+    this.themeToggled.emit();
   }
 }

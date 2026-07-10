@@ -1,7 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { UserActions, UserApi, UserModel } from '@entities/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { UserApi } from '../api/user.api';
+import type { UserModel } from '../model/user.model';
+import { UserActions } from './user.actions';
 
 @Injectable()
 export class UserEffects {

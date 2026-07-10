@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppActions, selectIsDarkTheme } from '@app/store';
-import { Store } from '@ngrx/store';
 import { IconComponent } from '@shared/ui/icon';
 import { ToggleSwitch, ToggleSwitchPassThrough } from 'primeng/toggleswitch';
 
@@ -17,12 +15,11 @@ import { ToggleSwitch, ToggleSwitchPassThrough } from 'primeng/toggleswitch';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeToggleComponent {
-  private readonly store = inject(Store);
-
-  protected readonly isDarkTheme = this.store.selectSignal(selectIsDarkTheme);
+  readonly isDarkTheme = input.required<boolean>();
+  readonly themeToggled = output<void>();
   
   protected toggleTheme(): void {
-    this.store.dispatch(AppActions.toggleThemeMode());
+    this.themeToggled.emit();
   }
   
   protected readonly togglePt: ToggleSwitchPassThrough | undefined = {

@@ -4,7 +4,7 @@ import { selectRegisterLoading, SessionActions } from '@entities/session';
 import { Store } from '@ngrx/store';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@shared/regex';
 import { IconComponent } from '@shared/ui/icon';
-import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { InputStringComponent } from '@shared/ui/input-string';
 import { ButtonDirective, ButtonModule } from 'primeng/button';
 import type { RegisterFormModel } from '../model/register-form.model';
 

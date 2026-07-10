@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
-import { ChangePasswordFormModel } from '@features/change-password';
-import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { InputStringComponent } from '@shared/ui/input-string';
 import { ButtonDirective } from 'primeng/button';
+import type { ChangePasswordFormModel } from '../model/change-password.model';
 
 @Component({
   selector: 'app-change-password-form',
@@ -21,7 +21,5 @@ export class ChangePasswordFormComponent {
     repeatNewPassword: '',
   });
   
-  protected readonly changePasswordForm = form(this.model, (path) => {
-    
-  })
+  protected readonly changePasswordForm = form(this.model, (path) => {})
 }

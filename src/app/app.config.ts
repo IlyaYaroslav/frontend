@@ -3,8 +3,7 @@ import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from
 import { provideRouter } from '@angular/router';
 import { AppEffects, appFeature } from '@app/store';
 import { AuthInterceptor, SessionEffects, sessionFeature } from '@entities/session';
-import { userFeature } from '@entities/user';
-import { UserEffects } from '@entities/user/store/user.effects';
+import { UserEffects, userFeature } from '@entities/user';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -25,12 +24,14 @@ export const appConfig: ApplicationConfig = {
       [sessionFeature.name]: sessionFeature.reducer,
       [userFeature.name]: userFeature.reducer,
     }),
-    provideStoreDevtools({
-      name: 'Task Space',
-      maxAge: 25,
-      logOnly: !isDevMode(),
-      autoPause: true
-    }),
+    ...(isDevMode() ? [
+        provideStoreDevtools({
+          name: 'Task Space',
+          maxAge: 25,
+          autoPause: true,
+        }),
+      ]
+      : []),
     provideEffects(AppEffects, SessionEffects, UserEffects),
     provideHttpClient(withInterceptorsFromDi()),
     {

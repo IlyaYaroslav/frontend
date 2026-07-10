@@ -27,11 +27,15 @@ export const sessionFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    on(SessionActions.tokenLoaded, (state, { accessToken }) => ({
-      ...state,
-      accessToken,
-      isAuthenticated: isAccessTokenValid(accessToken),
-    })),
+    on(SessionActions.tokenLoaded, (state, { accessToken }) => {
+      const isAuthenticated: boolean = isAccessTokenValid(accessToken);
+
+      return {
+        ...state,
+        accessToken: isAuthenticated ? accessToken : null,
+        isAuthenticated,
+      };
+    }),
 
     on(SessionActions.login, (state) => ({
       ...state,

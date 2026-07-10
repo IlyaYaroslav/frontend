@@ -3,7 +3,7 @@ import { email, form, required, submit } from '@angular/forms/signals';
 import { selectLoginLoading, SessionActions } from '@entities/session';
 import { Store } from '@ngrx/store';
 import { IconComponent } from '@shared/ui/icon';
-import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { InputStringComponent } from '@shared/ui/input-string';
 import { ButtonDirective } from 'primeng/button';
 import type { LoginFormModel } from '../model/login-form.model';
 

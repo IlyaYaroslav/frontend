@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { form, minLength, pattern, required } from '@angular/forms/signals';
 import { UserApi } from '@entities/user';
-import type { UpdateProfileFormModel } from '@features/update-profile/model/update-profile-form.model';
 import { NAME_PATTERN } from '@shared/regex';
-import { InputStringComponent } from '@shared/ui/input-string/ui/input-string.component';
+import { InputStringComponent } from '@shared/ui/input-string';
 import { MessageService } from 'primeng/api';
 import { ButtonDirective } from 'primeng/button';
+import type { UpdateProfileFormModel } from '../model/update-profile-form.model';
 
 @Component({
   selector: 'app-update-profile-form',

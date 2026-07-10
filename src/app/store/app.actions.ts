@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { ThemeMode } from './app.model';
+import type { ThemeMode } from './app.model';
 
 export const AppActions = createActionGroup({
   source: 'App',

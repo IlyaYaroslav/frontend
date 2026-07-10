@@ -1,12 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { SessionActions } from '@entities/session';
-import { decodeAccessToken } from '@entities/session/lib/decode-access-token';
+import { decodeAccessToken, SessionActions } from '@entities/session';
 import { UserActions } from '@entities/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, tap, withLatestFrom } from 'rxjs';
 import { AppActions } from './app.actions';
-import { ThemeMode } from './app.model';
+import type { ThemeMode } from './app.model';
 import { selectThemeMode } from './app.selectors';
 
 const STORAGE_KEY = 'theme-mode';

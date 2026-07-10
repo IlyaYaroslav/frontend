@@ -9,7 +9,9 @@
   </ng-template>
   <ng-template
     #end>
-    <app-theme-toggle />
+    <app-theme-toggle
+      [isDarkTheme]="isDarkTheme()"
+      (themeToggled)="onThemeToggled()" />
 
     @if (isAuthenticated()) {
       <p-overlay-badge

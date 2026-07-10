@@ -1,9 +1,9 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { SessionActions } from '@entities/session';
 import { Store } from '@ngrx/store';
 import { catchError, Observable, switchMap, take, throwError } from 'rxjs';
-import { selectAuthorizationHeader } from 'src/entities/session/store/session.selectors';
+import { SessionActions } from '../store/session.actions';
+import { selectAuthorizationHeader } from '../store/session.selectors';
 
 const PUBLIC_AUTH_URL_PARTS = ['/login', '/register'];
 
@@ -21,10 +21,10 @@ export class AuthInterceptor implements HttpInterceptor {
       switchMap((authorizationHeader) => {
         const request = authorizationHeader ? req.clone({
           setHeaders: {
-            Authorization: authorizationHeader
-          }
+            Authorization: authorizationHeader,
+          },
         }) : req;
-        
+
         return next.handle(request).pipe(
           catchError((error: unknown) => {
             if (error instanceof HttpErrorResponse && error.status === 401) {

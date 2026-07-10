@@ -1,13 +1,8 @@
-import { userFeature } from '@entities/user';
 import { createSelector } from '@ngrx/store';
+import { userFeature } from '../store/user.reducers';
 
 export const {
-  selectAvatarUploading,
   selectCurrentUser,
-  selectError,
-  selectLoading,
-  selectUpdating,
-  selectUserState,
 } = userFeature;
 
 export const selectUserName = createSelector(
