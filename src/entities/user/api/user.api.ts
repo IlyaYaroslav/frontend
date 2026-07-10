@@ -13,5 +13,6 @@ export class UserApi {
 
   getCurrentUserInfo(userId: string): Observable<UserModel> {
     return this.http.get<UserModel>(`${ this.userApiUrl }/${ userId }`);
+
   }
 }
