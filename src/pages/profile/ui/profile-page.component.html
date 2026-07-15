@@ -10,7 +10,9 @@
     (deleteAvatar)="onDeleteAvatar()" />
 </section>
 <section class="update-profile-form">
-  <app-update-profile-form />
+  <app-update-profile-form
+    [userData]="userData()"
+  />
 </section>
 
 

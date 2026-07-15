@@ -8,7 +8,7 @@ export interface UserModel {
 }
 
 export interface UpdateUserProfileRequest {
-  newFirstName: string;
+  newFirstName?: string;
   newLastName?: string;
 }
 export type UpdateUserProfileResponse = Pick<UserModel, 'id'> & Partial<Pick<UserModel, 'firstName' | 'lastName'>>;

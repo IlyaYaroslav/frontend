@@ -36,7 +36,7 @@ export class RegisterFormComponent {
 
   protected readonly registerForm = form(this.model, (path) => {
     required(path.name, { message: 'Введите имя' });
-    minLength(path.name, 2, { message: 'Имя должно быть не короче 2 символов' });
+    minLength(path.name, 1, { message: 'Имя должно быть не короче 1 символа' });
     pattern(path.name, NAME_PATTERN, {
       message: 'Имя должно содержать только буквы, пробел, дефис или апостроф',
     });

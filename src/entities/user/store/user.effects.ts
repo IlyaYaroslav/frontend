@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
 import { UserApi } from '../api/user.api';
 import type { UploadUserAvatarResponse, UserModel } from '../model/user.model';
 import { UserActions } from './user.actions';
@@ -115,6 +115,51 @@ export class UserEffects {
         this.messageService.add({
           summary: 'Ошибка',
           detail: 'При удалении фото профиля произошла ошибка',
+          severity: 'error',
+        });
+      }),
+    ), { dispatch: false },
+  );
+
+  readonly updateCurrentUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.updateCurrentUser),
+      concatLatestFrom(() => this.store.select(selectUserId)),
+      exhaustMap(([{ payload }, userId]) => {
+        if (!userId) {
+          return of(UserActions.updateCurrentUserFailure({
+            error: new Error('Произошла ошибка при получении данных пользователя'),
+          }));
+        }
+
+        return this.userApi.updateUserName(userId, payload).pipe(
+          map((patch) => UserActions.updateCurrentUserSuccess({ patch })),
+          catchError((error) => of(UserActions.updateCurrentUserFailure({ error }))),
+        );
+      }),
+    ),
+  );
+
+  readonly updateCurrentUserSuccessSideEffects = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.updateCurrentUserSuccess),
+      tap(() => {
+        this.messageService.add({
+          summary: 'Успех',
+          detail: 'Обновление данных пользователя успешно произведено',
+          severity: 'success',
+        });
+      }),
+    ), { dispatch: false },
+  );
+
+  readonly updateCurrentUserFailureSideEffects = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.updateCurrentUserFailure),
+      tap(() => {
+        this.messageService.add({
+          summary: 'Ошибка',
+          detail: 'При обновлении данных пользователя произошла ошибка',
           severity: 'error',
         });
       }),

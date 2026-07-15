@@ -1,49 +1,56 @@
-<form class="update-profile-form">
+<form class="update-profile-form" (submit)="onSubmit($event)">
   <fieldset class="form-inputs">
     <p>Имя:</p>
     <app-input-string
       [id]="'first-name'"
       [floatLabel]="false"
       [clear]="true"
+      [submitted]="submitted()"
       [placeholder]="'Имя'"
+      [disabled]="saving()"
       [autocomplete]="'username'"
       [field]="updateProfileForm.firstName"
     />
-    
+
     <p>Фамилия:</p>
     <app-input-string
       [id]="'last-name'"
       [floatLabel]="false"
       [clear]="true"
+      [submitted]="submitted()"
+      [disabled]="saving()"
       [placeholder]="'Фамилия'"
       [autocomplete]="'family-name'"
       [field]="updateProfileForm.lastName"
     />
-    
+
     <p>E-mail:</p>
-    <p>ilya4mail.ru</p>
-    
+    <p>{{ userEmail() }}</p>
+
     <p>Роль:</p>
-    <p>Пользователь</p>
+    <p>{{ userRole() }}</p>
   </fieldset>
   <fieldset class="form-actions">
-    <button 
+    <button
       type="submit"
       class="submit-btn form-btn"
       pButton
       raised
       severity="contrast"
       title="Сохранить изменения"
-    >
-      Сохранить изменения
+      [disabled]="!hasChanges() || updateProfileForm().invalid() || saving()"
+    >Сохранить изменения
     </button>
     <button
-      type="reset"
+      type="button"
       class="reset-btn form-btn"
       pButton
       raised
       severity="danger"
       title="Отменить изменения"
-    >Сбросить изменения</button>
+      [disabled]="!hasChanges() || saving()"
+      (click)="resetForm()"
+    >Сбросить изменения
+    </button>
   </fieldset>
 </form>
