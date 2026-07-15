@@ -9,7 +9,7 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
-import { API_BASE_URL, AUTH_API_URL, USER_API_URL } from '@shared/api/api.tokens';
+import { API_BASE_URL, AUTH_API_URL, USERS_API_URL } from '@shared/api/api.tokens';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
@@ -44,8 +44,8 @@ export const appConfig: ApplicationConfig = {
       useValue: '/api',
     },
     {
-      provide: USER_API_URL,
-      useFactory: (baseURL: string) => `${ baseURL }/user-service`,
+      provide: USERS_API_URL,
+      useFactory: (baseURL: string) => `${ baseURL }/user-service/users`,
       deps: [API_BASE_URL],
     },
     {

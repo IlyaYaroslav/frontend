@@ -1,8 +1,8 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
-  UpdateUserAvatarResponse,
   UpdateUserProfileRequest,
   UpdateUserProfileResponse,
+  UploadUserAvatarResponse,
   UserModel,
 } from '../model/user.model';
 
@@ -19,9 +19,9 @@ export const UserActions = createActionGroup({
     'Update Current User Success': props<{ patch: UpdateUserProfileResponse }>(),
     'Update Current User Failure': props<{ error: unknown }>(),
 
-    'Update Avatar': props<{ file: File }>(),
-    'Update Avatar Success': props<{ patch: UpdateUserAvatarResponse }>(),
-    'Update Avatar Failure': props<{ error: unknown }>(),
+    'Upload Avatar': props<{ file: File }>(),
+    'Upload Avatar Success': props<{ patch: UploadUserAvatarResponse }>(),
+    'Upload Avatar Failure': props<{ error: unknown }>(),
 
     'Delete Avatar': emptyProps(),
     'Delete Avatar Success': emptyProps(),

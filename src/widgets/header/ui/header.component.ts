@@ -57,7 +57,6 @@ export class HeaderComponent implements OnInit {
     borderRadius: '30px',
     padding: '0.75rem 1rem 0.75rem 1.5rem',
     border: 'none',
-    backdropFilter: 'blur(0.5px) url(#lg-filter) blur(1px) saturate(1.5) brightness(1.1)',
     boxShadow: 'inset 0 0 12px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2)',
   };
 

@@ -10,7 +10,7 @@ import { IconName } from '../model/icon.model';
   ],
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
   readonly name = input.required<IconName>();

@@ -1,15 +1,21 @@
 <h1 class="uppercase">Профиль</h1>
-<p-divider/>
+<p-divider />
 <h2>Основная информация</h2>
 
+
 <section class="profile-avatar">
-  <app-update-avatar/>
+  <app-update-avatar
+    [userData]="userData()"
+    (uploadAvatar)="onUploadAvatar($event)"
+    (deleteAvatar)="onDeleteAvatar()" />
 </section>
 <section class="update-profile-form">
-  <app-update-profile-form/>
+  <app-update-profile-form />
 </section>
-<p-divider/>
+
+
+<p-divider />
 <h2>Безопасность</h2>
 <section class="change-password-form">
-  <app-change-password-form/>
+  <app-change-password-form />
 </section>

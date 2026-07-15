@@ -1,14 +1,28 @@
 export interface UserModel {
   id: string;
   email: string;
-  role: string;
-  firstName: string | null;
+  role: UserRole;
+  firstName: string;
   lastName: string | null;
-  avatarUrl: string | null;
+  profilePicturePresignedUrl: string | null;
 }
 
-export type UpdateUserProfileRequest = Partial<Pick<UserModel, 'firstName' | 'lastName'>>;
-
+export interface UpdateUserProfileRequest {
+  newFirstName: string;
+  newLastName?: string;
+}
 export type UpdateUserProfileResponse = Pick<UserModel, 'id'> & Partial<Pick<UserModel, 'firstName' | 'lastName'>>;
 
-export type UpdateUserAvatarResponse = Pick<UserModel, 'id' | 'avatarUrl'>;
+export interface UpdateUserPasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+}
+export type UpdateUserPasswordResponse = Pick<UserModel, 'id'>;
+
+export interface UploadUserAvatarRequest {
+  id: string;
+  file: File;
+}
+export type UploadUserAvatarResponse = Pick<UserModel, 'id' | 'profilePicturePresignedUrl'>;
+
+export type UserRole = 'ADMIN' | 'USER';

@@ -1,23 +1,28 @@
 <section class="avatar">
-  СИ
+  @if (hasAvatar()) {
+    <img [src]="avatarUrl()" alt="User avatar" class="avatar__image">
+  } @else {
+    {{ userLabel() }}
+  }
+
   <div class="avatar__actions">
-    <p-button
-      type="button"
-      [style]="avatarActionStyle"
-      class="flex items-center justify-center"
-      severity="contrast"
-      variant="outlined"
-      title="Редактировать фото">
-      <app-icon name="pen" [size]="25" style="color: white"/>
-    </p-button>
-    <p-button
-      type="button"
-      [style]="avatarActionStyle"
-      class="flex items-center justify-center"
-      severity="contrast"
-      variant="outlined"
-      title="Удалить фото">
-      <app-icon name="trash" [size]="25" style="color: white"/>
-    </p-button>
+    @for (btn of actionButtons; track btn.title) {
+      <p-button
+        type="button"
+        [style]="avatarActionStyle"
+        class="flex items-center justify-center"
+        severity="contrast"
+        variant="outlined"
+        (click)="onActionButtonClick(btn.action)"
+        [title]="btn.title">
+        <app-icon [name]="btn.icon" [size]="25" style="color: white" />
+      </p-button>
+    }
   </div>
 </section>
+
+<app-input-file 
+  #avatarFileInput
+  accept="image/png,image/jpeg,image/webp"
+  (fileSelected)="onFileSelected($event)"
+/>

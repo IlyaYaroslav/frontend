@@ -1,5 +1,8 @@
 @use "styles/backgrounds" as *;
 
+$min-width: 500px;
+$max-width: 30%;
+
 :host {
   @include liquidGlass;
 
@@ -15,13 +18,13 @@
 }
 
 .update-profile-form {
-  min-width: 200px;
-  max-width: 30%;
+  min-width: $min-width;
+  max-width: $max-width;
   margin-top: 40px;
 }
 
 .change-password-form {
-  min-width: 200px;
-  max-width: 30%;
+  min-width: $min-width;
+  max-width: $max-width;
   margin-top: 20px;
 }

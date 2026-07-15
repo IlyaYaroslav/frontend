@@ -63,20 +63,20 @@ export const userFeature = createFeature({
       error,
     })),
 
-    on(UserActions.updateAvatar, (state) => ({
+    on(UserActions.uploadAvatar, (state) => ({
       ...state,
       avatarUploading: true,
       error: null,
     })),
 
-    on(UserActions.updateAvatarSuccess, (state, { patch }) => ({
+    on(UserActions.uploadAvatarSuccess, (state, { patch }) => ({
       ...state,
       currentUser: state.currentUser ? { ...state.currentUser, ...patch } : null,
       avatarUploading: false,
       error: null,
     })),
 
-    on(UserActions.updateAvatarFailure, (state, { error }) => ({
+    on(UserActions.uploadAvatarFailure, (state, { error }) => ({
       ...state,
       avatarUploading: false,
       error,
@@ -90,7 +90,7 @@ export const userFeature = createFeature({
 
     on(UserActions.deleteAvatarSuccess, (state) => ({
       ...state,
-      currentUser: state.currentUser ? { ...state.currentUser, avatarUrl: null } : null,
+      currentUser: state.currentUser ? { ...state.currentUser, profilePicturePresignedUrl: null } : null,
       avatarUploading: false,
       error: null,
     })),
